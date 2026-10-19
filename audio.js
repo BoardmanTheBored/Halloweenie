@@ -86,6 +86,17 @@ Hallo.audio = {
     moon(ctx, out, t) { [523, 659, 784, 1047].forEach((f, i) => Hallo.audio.tone(ctx, out, f, t + i * 0.17, 1.8, 0.08)); },
     // Locked or out-of-order tap: a very quiet low thud.
     soft(ctx, out, t) { Hallo.audio.tone(ctx, out, 150, t, 0.3, 0.06, 105); },
+    // Statue finale: a slow rising swell, a long stone grind, then a distant bell.
+    swell(ctx, out, t) { [196, 294].forEach((f) => Hallo.audio.pad(ctx, out, f, t, 2.4, 0.06)); },
+    grind(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 2.6, 0.16, 170, 90); },
+    bell(ctx, out, t) {
+      // Inharmonic partials with faster-decaying highs read as a bell; kept low and distant.
+      [[1, 1], [2, 0.55], [2.4, 0.35], [3, 0.25], [4.2, 0.15], [5.4, 0.08]]
+        .forEach(([ratio, amp], i) => Hallo.audio.tone(ctx, out, 196 * ratio, t, 5 / (1 + i * 0.35), 0.12 * amp));
+    },
+    // Hint appearing: one quiet high note. Reset: two soft falling notes.
+    hint(ctx, out, t) { Hallo.audio.tone(ctx, out, 1047, t, 1.6, 0.04); },
+    reset(ctx, out, t) { Hallo.audio.tone(ctx, out, 660, t, 1, 0.07); Hallo.audio.tone(ctx, out, 494, t + 0.18, 1.3, 0.07); },
     // Overlay open / close: a gentle breath of air.
     open(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 0.6, 0.07, 200, 700); },
     close(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 0.6, 0.07, 700, 200); },
@@ -98,6 +109,16 @@ Hallo.audio = {
     if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t + dur);
     g.gain.setValueAtTime(0.0001, t);
     g.gain.exponentialRampToValueAtTime(vol, t + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
+  },
+
+  // A sine that fades in slowly over 60% of its length, then out (swells).
+  pad(ctx, out, freq, t, dur, vol) {
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.6);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
   },

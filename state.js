@@ -9,6 +9,7 @@ Hallo.state = {
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   activeStory: null,       // null | 1 | 2 | 3
   storyProgress: 0,
+  sequence: false,         // a story finale is playing: all other input is disabled
   completed: [false, false, false],
 };
 

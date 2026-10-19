@@ -74,7 +74,7 @@ body {
 .castle-window { left: 49.5%; top: 30%; width: 3%; height: 5%;
   background: var(--candle) !important; border-radius: 50% 50% 0 0; }
 
-.layer-terrain > *, .layer-mid > * { position: absolute; }
+.layer-terrain > *, .layer-mid > *, .statue > *, .fountain > * { position: absolute; }
 .cliff {
   left: 0; right: 0; top: 52%; height: 22%;
   background: linear-gradient(#17143a, #0f0d26);
@@ -375,3 +375,72 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
   padding: 8px 14px;
   border-radius: 12px;
 }
+
+/* ======================= Statue finale, completed look, Reset (checkpoint 5) =======================
+   Finale visuals are CSS animations (not transitions) so Play/Pause freezes them mid-way.
+   Their end values match the persistent .is-complete look, so nothing jumps when classes swap. */
+
+/* Moon swells and brightens, later calms to its resting glow. */
+.seq-moon .cu-moon { animation: seq-moon 2.2s ease-in-out forwards; }
+.seq-calm .cu-moon { animation: seq-calm 1.4s ease-in-out forwards; }
+@keyframes seq-moon {
+  to { filter: brightness(1.45); box-shadow: 0 0 18cqw 8cqw rgba(235, 238, 255, 0.7); transform: scale(1.05); }
+}
+@keyframes seq-calm {
+  from { filter: brightness(1.45); box-shadow: 0 0 18cqw 8cqw rgba(235, 238, 255, 0.7); transform: scale(1.05); }
+  to   { filter: brightness(1.1);  box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); transform: scale(1); }
+}
+
+/* Head turns toward the castle (to the right in the close-up); the eyes travel a little further. */
+.seq-turn .cu-head { animation: seq-turn-head 2.6s ease-in-out forwards; }
+.seq-turn .cu-eye  { animation: seq-turn-eye 2.6s ease-in-out forwards; }
+@keyframes seq-turn-head { to { transform: translateX(2.2cqw) scaleX(0.92); } }
+@keyframes seq-turn-eye  { to { transform: translateX(4cqw) scaleX(0.85); } }
+
+/* Calm: eyes settle from bright to a faint glow, hand glow fades. */
+.seq-calm .cu-eye { background: #bfe6fa !important; box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
+
+/* Persistent completed look in the close-up. */
+.is-complete .cu-head { transform: translateX(2.2cqw) scaleX(0.92); }
+.is-complete .cu-eye  { transform: translateX(4cqw) scaleX(0.85); background: #bfe6fa !important; box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
+.is-complete .cu-moon { filter: brightness(1.1); box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); }
+
+/* Persistent completed look in the main scene: statue head turned toward the castle, eyes faintly lit. */
+.statue-eye {
+  top: 8%; width: 1cqw; height: 0.7cqw; border-radius: 50%;
+  background: #d8f3ff; box-shadow: 0 0 1.4cqw 0.5cqw rgba(170, 225, 255, 0.7);
+  opacity: 0;
+}
+.statue-eye-l { left: 38%; }
+.statue-eye-r { left: 52%; }
+.story1-done .statue-eye { opacity: 0.85; transform: translateX(1.2cqw); }
+.story1-done .statue-head { transform: translateX(1.2cqw) scaleX(0.92); }
+
+/* Reset button (overlay, left of Play/Pause), shown only when the open story is complete. */
+.pill-btn {
+  min-height: 44px; padding: 0 18px;
+  font: inherit; font-size: 1rem; letter-spacing: 0.05em;
+  color: var(--silver);
+  border: 1px solid rgba(201, 207, 232, 0.55); border-radius: 22px;
+  background: rgba(11, 10, 28, 0.6);
+  cursor: pointer;
+}
+.pill-btn:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
+.reset-btn {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  right: calc(max(12px, env(safe-area-inset-right)) + 44px + 8px);   /* sits just left of Play/Pause */
+}
+.overlay:not(.can-reset) .reset-btn { display: none; }
+
+/* Hint text eases in. */
+.hint-line:not(:empty) { animation: hint-in 0.8s ease-out; }
+@keyframes hint-in { from { opacity: 0; } }
+
+/* Reduced motion: the finale keeps its timing and sound, but visuals jump to their end states
+   instead of animating (no scaling, sliding or pulsing). */
+.reduced-motion .seq-moon .cu-moon  { animation: none; filter: brightness(1.45); box-shadow: 0 0 18cqw 8cqw rgba(235, 238, 255, 0.7); }
+.reduced-motion .seq-calm .cu-moon  { animation: none; filter: brightness(1.1);  box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); }
+.reduced-motion .seq-turn .cu-head  { animation: none; transform: translateX(2.2cqw) scaleX(0.92); }
+.reduced-motion .seq-turn .cu-eye   { animation: none; transform: translateX(4cqw) scaleX(0.85); }
+.reduced-motion .hint-line:not(:empty) { animation: none; }

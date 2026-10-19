@@ -13,6 +13,7 @@
     root.classList.toggle('paused', s.paused);
     root.classList.toggle('reduced-motion', s.reducedMotion);
     root.classList.toggle('started', s.started);
+    root.classList.toggle('story1-done', s.completed[0]);   // the main scene renders each story's persistent change
     // Scene input is off before Enter, while paused, and while an overlay is open
     // (inert also blocks keyboard focus).
     stage.inert = !s.started || s.paused || s.activeStory !== null;
@@ -47,10 +48,9 @@
 
   render(Hallo.state);
 
-  // ?debug: show hotspot bounds, a sample hint, and a probe that proves motion and timers pause.
+  // ?debug: show hotspot bounds and a probe that proves motion and timers pause.
   if (new URLSearchParams(location.search).has('debug')) {
     root.classList.add('debug');
-    document.getElementById('hint-line').textContent = 'Something in the garden is watching the moon.';
     const probe = document.getElementById('debug-probe');
     probe.hidden = false;
     const dot = probe.querySelector('.probe-dot');
