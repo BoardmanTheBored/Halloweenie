@@ -150,3 +150,80 @@ body {
   color: var(--silver);
   text-shadow: 0 1px 4px #000;
 }
+
+/* ---------- Play/Pause control ---------- */
+.icon-btn {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 207, 232, 0.55);
+  background: rgba(11, 10, 28, 0.6);
+  color: var(--silver);
+  cursor: pointer;
+  opacity: 0.8;                       /* unobtrusive until focused or hovered */
+}
+.icon-btn:hover, .icon-btn:focus-visible { opacity: 1; }
+.icon-btn:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
+.icon-btn svg { fill: currentColor; }
+.icon-play { display: none; }
+.paused .icon-play { display: block; }
+.paused .icon-pause { display: none; }
+
+/* ---------- Pause state: everything CSS-animated freezes; the scene dims slightly ---------- */
+.paused *, .paused *::before, .paused *::after { animation-play-state: paused !important; }
+#stage { transition: filter 0.3s; }
+.paused #stage { filter: brightness(0.65); }
+
+/* ---------- Start screen ---------- */
+#start-screen {
+  position: fixed; inset: 0; z-index: 10;
+  display: grid; place-items: center;
+  padding: 24px;
+  text-align: center;
+  color: #e8ebff;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(201, 207, 232, 0.22), transparent 38%),
+    linear-gradient(#0d0b2b, #1a1745 60%, #0b0a1c);
+  transition: opacity 0.6s ease;
+}
+#start-screen[hidden] { display: none; }
+#start-screen.leaving { opacity: 0; pointer-events: none; }
+.start-inner { max-width: 22rem; display: grid; gap: 14px; }
+#start-title { font-size: clamp(1.8rem, 9vw, 2.6rem); font-weight: normal; letter-spacing: 0.02em; }
+.start-lead { font-size: 1.15rem; line-height: 1.4; }
+.start-note { font-size: 1rem; line-height: 1.4; color: #c9cfe8; }
+#enter-btn {
+  justify-self: center;
+  margin-top: 10px;
+  min-width: 160px; min-height: 52px;
+  padding: 0 32px;
+  font: inherit; font-size: 1.2rem; letter-spacing: 0.08em;
+  color: #1a1230; background: var(--candle);
+  border: 0; border-radius: 26px;
+  cursor: pointer;
+}
+#enter-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* ---------- Debug probe (?debug only) ---------- */
+#debug-probe {
+  position: fixed; left: 8px; top: 8px; z-index: 5;
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 8px; border-radius: 12px;
+  font: 12px monospace; color: #fff; background: rgba(0, 0, 0, 0.6);
+}
+#debug-probe[hidden] { display: none; }
+.probe-dot { width: 10px; height: 10px; border-radius: 50%; background: #ff5ca8; animation: probe-pulse 1s linear infinite; }
+@keyframes probe-pulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(14px); } }
+
+/* ---------- "Paused" label, centered in the viewport (the button's aria-label already announces state) ---------- */
+.paused-label {
+  position: absolute; left: 0; right: 0; top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 2rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 10px #000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.paused .paused-label { opacity: 1; }

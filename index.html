@@ -49,11 +49,34 @@
 
   <!-- 4. UI: anchored to the viewport, not the stage, so it is never cropped on short screens -->
   <div class="layer-ui">
-    <div class="ui-controls" id="ui-controls"></div>
+    <div class="ui-controls" id="ui-controls">
+      <button class="icon-btn" id="pause-btn" type="button" aria-label="Pause" aria-pressed="false">
+        <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+      </button>
+    </div>
     <p class="hint-line" id="hint-line" aria-live="polite"></p>
+    <p class="paused-label" aria-hidden="true">Paused</p>
   </div>
 
-  <!-- 5. Overlay (close-up) and 6. start screen are added in later checkpoints -->
+  <!-- Debug-only probe (?debug): a spinning dot and the pausable clock, to prove Play/Pause stops motion and timers -->
+  <div id="debug-probe" hidden><span class="probe-dot"></span><span class="probe-count">0</span></div>
+
+  <!-- 5. Overlay (close-up) is added in checkpoint 4 -->
+
+  <!-- 6. Start screen: topmost until Enter -->
+  <section id="start-screen" aria-labelledby="start-title">
+    <div class="start-inner">
+      <h1 id="start-title">Virtual Hallo&ldquo;weenie&rdquo;</h1>
+      <p class="start-lead">A castle waits under the moon. Someone is expected.</p>
+      <p class="start-note">Best with sound on. Tap things to see what answers.</p>
+      <p class="start-note" id="motion-note" hidden>Reduced motion is on, so movement will be kept gentle and minimal.</p>
+      <button id="enter-btn" type="button">Enter</button>
+    </div>
+  </section>
+
+  <script src="state.js"></script>
+  <script src="audio.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
