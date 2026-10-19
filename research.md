@@ -24,7 +24,7 @@ Record only what informs the next build decisions:
 
 Investigate unfamiliar techniques or asset sources as needed. Verify usage terms and keep source links and required credits here. Distinguish evidence from assumptions; the Agent's recommendation alone is not evidence.
 
-## Decisions (DRAFT: pending Developer approval)
+## Decisions (Developer approved 2026-10-19)
 
 ### Scene
 - **Setting:** gothic castle on a cliff against a large moon (the "weenie"). Genre-level gothic only.
