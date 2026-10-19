@@ -13,8 +13,9 @@
     root.classList.toggle('paused', s.paused);
     root.classList.toggle('reduced-motion', s.reducedMotion);
     root.classList.toggle('started', s.started);
-    // Scene input is off before Enter and while paused (inert also blocks keyboard focus).
-    stage.inert = !s.started || s.paused;
+    // Scene input is off before Enter, while paused, and while an overlay is open
+    // (inert also blocks keyboard focus).
+    stage.inert = !s.started || s.paused || s.activeStory !== null;
     motionNote.hidden = !s.reducedMotion;
     pauseBtn.setAttribute('aria-label', s.paused ? 'Play' : 'Pause');
     pauseBtn.setAttribute('aria-pressed', String(s.paused));

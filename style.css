@@ -27,7 +27,7 @@ body {
 /* Cover-style crop: the stage fills the viewport width on screens shorter than 390:844,
    cropping the top and bottom equally. "Fit" width is the full-height size; the crop is capped
    at 1.3x so wide windows letterbox at the sides instead of zooming into a thin slice. */
-#stage {
+#stage, .closeup {
   --fit-w: calc(100dvh * 390 / 844);
   position: absolute;
   left: 50%; top: 50%;
@@ -135,7 +135,7 @@ body {
 .debug .hotspot { outline: 2px dashed #ff5ca8; }
 
 /* ---------- 4. UI ---------- */
-.layer-ui { position: fixed; inset: 0; pointer-events: none; }
+.layer-ui { position: fixed; inset: 0; z-index: 4; pointer-events: none; }
 .ui-controls {
   position: absolute;
   top: max(10px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
@@ -207,7 +207,7 @@ body {
 
 /* ---------- Debug probe (?debug only) ---------- */
 #debug-probe {
-  position: fixed; left: 8px; top: 8px; z-index: 5;
+  position: fixed; left: 64px; top: 14px; z-index: 6;
   display: flex; align-items: center; gap: 8px;
   padding: 4px 8px; border-radius: 12px;
   font: 12px monospace; color: #fff; background: rgba(0, 0, 0, 0.6);
@@ -294,3 +294,84 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
 .reduced-motion .fog, .reduced-motion .lantern-glow { animation: none; }
 .reduced-motion .lantern-glow { opacity: 0.8; }
 .reduced-motion .bat { display: none; }
+
+/* ======================= Overlay and statue close-up (checkpoint 4) ======================= */
+.overlay {
+  position: fixed; inset: 0; z-index: 2;
+  background: var(--ink);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;   /* fade; hide after the fade-out */
+}
+.overlay.open { opacity: 1; visibility: visible; transition: opacity 0.5s ease; }
+.back-btn {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left));
+  opacity: 0.9;
+}
+
+/* The close-up is a stage-sized frame (same cover crop), so art scales like the main scene. */
+.closeup > * { position: absolute; }
+.closeup { display: none; background: #14123a; overflow: hidden; }
+.overlay[data-story="1"] #closeup-1 { display: block; }
+
+/* Placeholder statue art in CSS shapes (real close-up replaces it in the art-swap checkpoint). */
+.cu-sky { inset: 0; background: linear-gradient(#0d0b2b, #221f5c 60%, #3a2f73); }
+.cu-moon {
+  left: 50%; top: 11%; width: 34%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #f4f1ff, #cfd3f0 60%, #aab0d8);
+  box-shadow: 0 0 6cqw 2cqw rgba(201, 207, 232, 0.3);
+  transition: box-shadow 0.6s, filter 0.6s;
+}
+.cu-ground { left: 0; right: 0; top: 82%; bottom: 0; background: linear-gradient(#1d1946, #0b0a1c); }
+.cu-statue { inset: 0; pointer-events: none; }
+.cu-statue > * { position: absolute; background: #7a7da3; }
+.cu-body { left: 20%; top: 44%; width: 60%; height: 42%; background: linear-gradient(90deg, #666a93, #8d90b3 45%, #666a93) !important;
+  clip-path: polygon(30% 0, 70% 0, 100% 22%, 100% 100%, 0 100%, 0 22%); }
+.cu-head { left: 36%; top: 30%; width: 28%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #a2a5c8, #7a7da3) !important; }
+.cu-arm { left: 66%; top: 42%; width: 6%; height: 12%; transform: rotate(-10deg); border-radius: 30%; }
+.cu-hand {
+  left: 66%; top: 33%; width: 10%; height: 9%; background: #9396b8 !important;
+  clip-path: polygon(0 45%, 0 15%, 18% 15%, 18% 0, 34% 0, 34% 12%, 50% 12%, 50% 0, 66% 0, 66% 12%, 82% 12%, 82% 22%, 100% 22%, 100% 60%, 80% 100%, 20% 100%);
+  transition: filter 0.6s;
+}
+.cu-eye { top: 37%; width: 4.5%; height: 1.3%; border-radius: 50%; background: #1c1a36 !important; transition: background 0.6s, box-shadow 0.6s; }
+.cu-eye-l { left: 42%; }
+.cu-eye-r { left: 53.5%; }
+
+/* Trigger targets sit over their art, >= 44x44 CSS px. */
+.target { background: transparent; border: 0; border-radius: 10px; cursor: pointer; min-width: 44px; min-height: 44px; }
+.target:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
+.debug .target { outline: 2px dashed #ff5ca8; }
+#t-eyes { left: 35%; top: 34.5%; width: 30%; height: 6.5%; }
+#t-hand { left: 65%; top: 31.5%; width: 14%; height: 12%; }
+#t-moon { left: 48%; top: 9%; width: 38%; height: 19%; }
+
+/* Progress: each correct tap leaves a lasting glow and plays a one-shot pop. */
+.done-eyes .cu-eye { background: #d8f3ff !important; box-shadow: 0 0 2.5cqw 1cqw rgba(170, 225, 255, 0.9); }
+.done-hand .cu-hand { filter: drop-shadow(0 0 2cqw rgba(255, 196, 100, 0.95)) brightness(1.25); }
+.done-moon .cu-moon { box-shadow: 0 0 12cqw 5cqw rgba(220, 225, 255, 0.55); filter: brightness(1.12); }
+.pop-eyes .cu-eye { animation: pop-glow 0.9s ease-out; }
+.pop-hand .cu-hand { animation: pop-lift 0.9s ease-out; }
+.pop-moon .cu-moon { animation: pop-swell 1.1s ease-out; }
+@keyframes pop-glow { 0% { box-shadow: 0 0 0 0 rgba(170, 225, 255, 0); } 40% { box-shadow: 0 0 5cqw 2.5cqw rgba(170, 225, 255, 1); } }
+@keyframes pop-lift { 40% { transform: translateY(-1.2cqw); } }
+@keyframes pop-swell { 40% { transform: scale(1.06); } }
+.reduced-motion [class*="pop-"] * { animation: none; }   /* lasting glow stays; the one-shot motion goes */
+.reduced-motion [class*="pop-"] { animation: none; }
+
+/* Soft tap ripple. */
+#ripple-layer { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
+.ripple {
+  position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px;
+  border-radius: 50%; border: 2px solid rgba(201, 207, 232, 0.75);
+  animation: ripple-out 0.7s ease-out forwards;
+}
+@keyframes ripple-out { from { transform: scale(0.3); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+.reduced-motion .ripple { animation-duration: 0.4s; }
+
+/* Hint text gets a dark backing so it stays readable over any art (4.5:1 contrast), and only shows when there is text. */
+.hint-line:not(:empty) {
+  background: rgba(11, 10, 28, 0.78);
+  padding: 8px 14px;
+  border-radius: 12px;
+}

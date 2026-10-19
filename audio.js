@@ -65,4 +65,58 @@ Hallo.audio = {
     this.master.gain.value = 0.6;
     src.start();
   },
+
+  // ---- One-shot sounds (synthesized placeholders; all quiet, no stingers) ----
+  // play(name) never throws: a missing or blocked audio context just means silence.
+  play(name) {
+    const ctx = this.ctx;
+    if (!ctx || !this.master || !this.sounds[name]) return;
+    try { this.sounds[name](ctx, this.master, ctx.currentTime); } catch (e) { /* silent */ }
+  },
+
+  sounds: {
+    // Eyes: two soft high notes, like a shimmer of light.
+    eyes(ctx, out, t) { [880, 1319].forEach((f, i) => Hallo.audio.tone(ctx, out, f, t + i * 0.13, 1.4, 0.09)); },
+    // Hand: a short stone scrape (filtered noise sweeping up) with a low thump.
+    hand(ctx, out, t) {
+      Hallo.audio.noise(ctx, out, t, 0.7, 0.2, 250, 900);
+      Hallo.audio.tone(ctx, out, 85, t, 0.35, 0.12);
+    },
+    // Moon: four rising chime notes.
+    moon(ctx, out, t) { [523, 659, 784, 1047].forEach((f, i) => Hallo.audio.tone(ctx, out, f, t + i * 0.17, 1.8, 0.08)); },
+    // Locked or out-of-order tap: a very quiet low thud.
+    soft(ctx, out, t) { Hallo.audio.tone(ctx, out, 150, t, 0.3, 0.06, 105); },
+    // Overlay open / close: a gentle breath of air.
+    open(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 0.6, 0.07, 200, 700); },
+    close(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 0.6, 0.07, 700, 200); },
+  },
+
+  // A sine note with a soft attack and exponential decay. endFreq slides the pitch if given.
+  tone(ctx, out, freq, t, dur, vol, endFreq) {
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(freq, t);
+    if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
+  },
+
+  // Band-passed noise whose center frequency sweeps from f0 to f1 (scrapes, breaths).
+  noise(ctx, out, t, dur, vol, f0, f1) {
+    if (!this.noiseBuf) {
+      const n = ctx.sampleRate;
+      this.noiseBuf = ctx.createBuffer(1, n, ctx.sampleRate);
+      const d = this.noiseBuf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    }
+    const s = ctx.createBufferSource(); s.buffer = this.noiseBuf; s.loop = true;
+    const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 1.2;
+    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.3);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(f); f.connect(g); g.connect(out); s.start(t); s.stop(t + dur + 0.05);
+  },
 };

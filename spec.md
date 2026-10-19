@@ -54,7 +54,7 @@ Play/Pause
 5. One unobtrusive control; pause freezes motion, effects, audio, timers (including the hint timer and any running story) and input; resume continues from the same point.
 Statue story and overlay
 6. Tapping the statue opens its close-up overlay with a fade; back arrow closes it; closing mid-story resets tap progress.
-7. Taps on eyes, hand, moon must go in order; each gives a distinct audiovisual response and visible progress; wrong order/locked taps give soft feedback only.
+7. Taps on eyes, hand, moon must go in order; each gives a distinct audiovisual response and visible progress; a wrong tap inside the open story (out of order, or a target already done) gives soft feedback (ring, quiet thud) and resets tap progress to the start, with the glows fading out; locked objects in the main scene give soft feedback only. (Developer decision 2026-10-19.)
 8. Completion plays a 5-10 s sequence; all other input is disabled during it; afterward the overlay fades to the main scene showing the persistent change.
 9. Tapping the completed statue reopens the overlay with Reset; Reset restores the pre-story look and the story replays without reload.
 10. Hints appear after ~12-15 s idle, up to three, each more direct, in the bottom text line, and pause with Play/Pause.

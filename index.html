@@ -77,7 +77,33 @@
   <!-- Debug-only probe (?debug): a spinning dot and the pausable clock, to prove Play/Pause stops motion and timers -->
   <div id="debug-probe" hidden><span class="probe-dot"></span><span class="probe-count">0</span></div>
 
-  <!-- 5. Overlay (close-up) is added in checkpoint 4 -->
+  <!-- 5. Overlay: close-up of the tapped story object, same page, fades over the scene.
+       Below the UI layer so Play/Pause stays reachable. Only story 1 (statue) exists so far. -->
+  <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Statue close-up" inert>
+    <div class="closeup" id="closeup-1">
+      <div class="cu-sky"></div>
+      <div class="cu-moon"></div>
+      <div class="cu-ground"></div>
+      <div class="cu-statue">
+        <div class="cu-body"></div>
+        <div class="cu-arm"></div>
+        <div class="cu-hand"></div>
+        <div class="cu-head"></div>
+        <div class="cu-eye cu-eye-l"></div>
+        <div class="cu-eye cu-eye-r"></div>
+      </div>
+      <!-- Trigger targets, in story order: eyes, hand, moon -->
+      <button class="target" id="t-eyes" type="button" aria-label="The statue's eyes"></button>
+      <button class="target" id="t-hand" type="button" aria-label="The statue's raised hand"></button>
+      <button class="target" id="t-moon" type="button" aria-label="The moon"></button>
+    </div>
+    <button class="icon-btn back-btn" id="overlay-back" type="button" aria-label="Back to the castle">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Tap ripples for soft feedback; above the overlay, below the UI -->
+  <div id="ripple-layer" aria-hidden="true"></div>
 
   <!-- 6. Start screen: topmost until Enter -->
   <section id="start-screen" aria-labelledby="start-title">
@@ -92,6 +118,10 @@
 
   <script src="state.js"></script>
   <script src="audio.js"></script>
+  <script src="feedback.js"></script>
+  <script src="overlay.js"></script>
+  <script src="story-statue.js"></script>
+  <script src="scene.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
