@@ -19,24 +19,39 @@
       <div class="castle-tower castle-tower-c"></div>
       <div class="castle-window"></div>
     </div>
-    <div class="layer layer-mid">
+    <!-- Fog: between the castle and the terrain, so it veils the castle base only -->
+    <div class="layer layer-fx" id="fx-fog" aria-hidden="true">
+      <div class="fog fog-a"></div>
+      <div class="fog fog-b"></div>
+    </div>
+    <div class="layer layer-terrain">
       <div class="cliff"></div>
       <div class="ground"></div>
+    </div>
+    <div class="layer layer-mid">
       <div class="gatehouse">
         <div class="gh-tower gh-tower-l"></div>
         <div class="gh-tower gh-tower-r"></div>
         <div class="gh-wall"></div>
         <div class="gh-arch"></div>
       </div>
+      <div class="lantern lantern-l"></div>
+      <div class="lantern lantern-r"></div>
       <div class="fountain"><div class="fountain-basin"></div><div class="fountain-spout"></div></div>
       <div class="statue"><div class="statue-head"></div><div class="statue-body"></div><div class="statue-hand"></div></div>
     </div>
     <div class="layer layer-fore"><div class="fore-left"></div><div class="fore-right"></div></div>
 
-    <!-- 2. Reserved ambient effect layers (filled in checkpoint 3) -->
-    <div class="layer layer-fx" id="fx-fog" aria-hidden="true"></div>
-    <div class="layer layer-fx" id="fx-light" aria-hidden="true"></div>
-    <div class="layer layer-fx" id="fx-bats" aria-hidden="true"></div>
+    <!-- 2. Remaining ambient effect layers (fog sits lower in the stack, above) -->
+    <div class="layer layer-fx" id="fx-light" aria-hidden="true">
+      <div class="lantern-glow glow-l"></div>
+      <div class="lantern-glow glow-r"></div>
+    </div>
+    <div class="layer layer-fx" id="fx-bats" aria-hidden="true">
+      <div class="bat bat-1"><div class="bat-bob"><div class="bat-wings"></div></div></div>
+      <div class="bat bat-2"><div class="bat-bob"><div class="bat-wings"></div></div></div>
+      <div class="bat bat-3"><div class="bat-bob"><div class="bat-wings"></div></div></div>
+    </div>
 
     <!-- 3. Interactive hotspots (inert until checkpoint 4) -->
     <div class="layer layer-hotspots">
