@@ -1,0 +1,152 @@
+/* Stage model: a 390:844 portrait box, as large as fits the viewport (letterboxed).
+   Everything inside is sized in % or cqw/cqh of the stage, so layout is identical at any size. */
+
+:root {
+  --stage-ratio: 390 / 844;
+  --ink: #0b0a1c;
+  --indigo-deep: #14123a;
+  --indigo: #2a2766;
+  --jewel: #4b3b7a;
+  --silver: #c9cfe8;
+  --candle: #f2c46d;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;           /* no scrolling anywhere */
+  background: var(--ink);
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Cover-style crop: the stage fills the viewport width on screens shorter than 390:844,
+   cropping the top and bottom equally. "Fit" width is the full-height size; the crop is capped
+   at 1.3x so wide windows letterbox at the sides instead of zooming into a thin slice. */
+#stage {
+  --fit-w: calc(100dvh * 390 / 844);
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  container-type: size;       /* enables cqw / cqh units for children */
+  width: min(max(100vw, var(--fit-w)), calc(var(--fit-w) * 1.3));
+  aspect-ratio: var(--stage-ratio);
+  background: var(--indigo-deep);
+}
+
+.layer { position: absolute; inset: 0; }
+.layer > * { position: absolute; }
+
+/* ---------- 1. Background art placeholders ---------- */
+
+.layer-sky {
+  background:
+    radial-gradient(circle at 20% 12%, #fff 0 0.25cqw, transparent 0.4cqw),
+    radial-gradient(circle at 80% 8%, #fff 0 0.25cqw, transparent 0.4cqw),
+    radial-gradient(circle at 12% 30%, #fff 0 0.2cqw, transparent 0.35cqw),
+    radial-gradient(circle at 90% 26%, #fff 0 0.2cqw, transparent 0.35cqw),
+    radial-gradient(circle at 40% 6%, #fff 0 0.2cqw, transparent 0.35cqw),
+    linear-gradient(#0d0b2b 0%, #221f5c 55%, #3a2f73 100%);
+}
+.moon {
+  left: 34%; top: 7%; width: 56%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #f4f1ff, #cfd3f0 60%, #aab0d8);
+  box-shadow: 0 0 8cqw 3cqw rgba(201, 207, 232, 0.35);
+}
+
+/* Castle sits on the cliff, overlapping the moon: the focal point. */
+.layer-castle > * { background: #0f0d26; }
+.castle-keep  { left: 30%; top: 30%; width: 44%; height: 26%;
+  clip-path: polygon(0 100%, 0 12%, 10% 12%, 10% 0, 22% 0, 22% 12%, 78% 12%, 78% 0, 90% 0, 90% 12%, 100% 12%, 100% 100%); }
+.castle-tower { width: 11%; }
+.castle-tower-l { left: 24%; top: 24%; height: 32%;
+  clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%); }
+.castle-tower-r { left: 69%; top: 27%; height: 29%;
+  clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%); }
+.castle-tower-c { left: 46.5%; top: 14%; width: 9%; height: 42%;
+  clip-path: polygon(0 100%, 0 22%, 50% 0, 100% 22%, 100% 100%); }
+.castle-window { left: 49.5%; top: 30%; width: 3%; height: 5%;
+  background: var(--candle) !important; border-radius: 50% 50% 0 0; }
+
+.layer-mid > * { position: absolute; }
+.cliff {
+  left: 0; right: 0; top: 52%; height: 22%;
+  background: linear-gradient(#17143a, #0f0d26);
+  clip-path: polygon(0 40%, 18% 22%, 34% 28%, 50% 8%, 70% 20%, 86% 10%, 100% 30%, 100% 100%, 0 100%);
+}
+.ground {
+  left: 0; right: 0; top: 66%; bottom: 0;
+  background: linear-gradient(#1d1946, #0b0a1c);
+}
+/* Gatehouse: a separate wall-and-towers structure on the cliff path, in front of the castle.
+   Slightly lighter than the castle so the two read as distinct shapes. */
+.gatehouse { left: 33%; top: 52%; width: 34%; height: 15%; }
+.gatehouse > * { position: absolute; background: #2e2a6a; }
+.gh-wall  { left: 12%; right: 12%; bottom: 0; height: 62%;
+  clip-path: polygon(0 100%, 0 14%, 12% 14%, 12% 0, 26% 0, 26% 14%, 74% 14%, 74% 0, 88% 0, 88% 14%, 100% 14%, 100% 100%); }
+.gh-tower { bottom: 0; width: 22%; height: 100%;
+  clip-path: polygon(0 100%, 0 30%, 50% 0, 100% 30%, 100% 100%); }
+.gh-tower-l { left: 0; }
+.gh-tower-r { right: 0; }
+.gh-arch  { left: 36%; width: 28%; bottom: 0; height: 52%; background: #05040f !important;
+  border-radius: 50% 50% 0 0 / 35% 35% 0 0; }
+.fountain { left: 36%; top: 76%; width: 28%; height: 13%; }
+.fountain-basin {
+  left: 0; right: 0; bottom: 0; height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, #7f8cc4, #3a3f7c);
+  border: 0.8cqw solid #6a6a99;
+}
+.fountain-spout { left: 46%; bottom: 30%; width: 8%; height: 60%; background: #6a6a99; border-radius: 40% 40% 0 0; }
+.statue { left: 8%; top: 66%; width: 18%; height: 20%; }
+.statue-head { left: 28%; top: 0; width: 44%; aspect-ratio: 1; border-radius: 50%; background: #8d90b3; }
+.statue-body { left: 18%; top: 28%; width: 64%; bottom: 0; background: #7a7da3;
+  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%); }
+.statue-hand { left: 74%; top: 12%; width: 16%; height: 30%; background: #8d90b3; border-radius: 40%; transform: rotate(-12deg); }
+
+.layer-fore { pointer-events: none; }
+.fore-left, .fore-right { bottom: 0; background: #05040f; }
+.fore-left  { left: 0;  width: 30%; height: 18%; clip-path: polygon(0 0, 30% 40%, 60% 10%, 100% 55%, 100% 100%, 0 100%); }
+.fore-right { right: 0; width: 34%; height: 22%; clip-path: polygon(0 60%, 25% 15%, 55% 45%, 80% 0, 100% 30%, 100% 100%, 0 100%); }
+
+/* ---------- 2. Effect layers (empty until checkpoint 3) ---------- */
+.layer-fx { pointer-events: none; }
+
+/* ---------- 3. Hotspots: positioned over their objects, min 44x44 CSS px ---------- */
+.layer-hotspots { pointer-events: none; }
+.hotspot {
+  pointer-events: auto;
+  min-width: 44px; min-height: 44px;
+  background: transparent; border: 0; cursor: pointer;
+  border-radius: 8px;
+}
+.hotspot:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
+#hot-gates    { left: 31%; top: 51%; width: 38%; height: 17%; }
+#hot-fountain { left: 33%; top: 74%; width: 34%; height: 16%; }
+#hot-statue   { left: 5%;  top: 64%; width: 24%; height: 24%; }
+
+/* Debug: append ?debug to the URL (adds class via main.js) to see hotspot bounds. */
+.debug .hotspot { outline: 2px dashed #ff5ca8; }
+
+/* ---------- 4. UI ---------- */
+.layer-ui { position: fixed; inset: 0; pointer-events: none; }
+.ui-controls {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
+  display: flex; gap: 8px; pointer-events: auto;
+}
+.hint-line {
+  position: absolute;
+  left: 6%; right: 6%; bottom: max(14px, env(safe-area-inset-bottom));
+  min-height: 2.7em;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--silver);
+  text-shadow: 0 1px 4px #000;
+}
