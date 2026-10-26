@@ -15,11 +15,22 @@ Hallo.hints = (() => {
     'Eyes first, then reach out, then look to the sky.',
     'Touch the eyes, then the raised hand, then the moon, in that order.',
   ];
+  const MAIN_FOUNTAIN = [
+    'Water remembers what the moon forgets.',
+    'The fountain’s dark water is waiting for something.',
+    'Take a closer look at the fountain.',
+  ];
+  const FOUNTAIN = [
+    'Still water answers to a gentle touch.',
+    'Touch the water, and listen to what it says back.',
+    'Tap the water three times, slowly.',
+  ];
   function ladder() {
     const s = Hallo.state;
     if (!s.started || s.sequence) return null;
-    if (s.activeStory === null) return s.completed[0] ? null : MAIN;
+    if (s.activeStory === null) return !s.completed[0] ? MAIN : !s.completed[1] ? MAIN_FOUNTAIN : null;
     if (s.activeStory === 1 && !s.completed[0]) return STATUE;
+    if (s.activeStory === 2 && !s.completed[1]) return FOUNTAIN;
     return null;
   }
 
@@ -57,10 +68,10 @@ Hallo.hints = (() => {
   let prev = {};
   Hallo.onChange((s) => {
     const changed = s.started !== prev.started || s.activeStory !== prev.activeStory
-      || s.sequence !== prev.sequence || s.completed[0] !== prev.completed0
+      || s.sequence !== prev.sequence || s.completed[0] !== prev.completed0 || s.completed[1] !== prev.completed1
       || s.storyProgress > prev.storyProgress;
     prev = { started: s.started, activeStory: s.activeStory, sequence: s.sequence,
-      completed0: s.completed[0], storyProgress: s.storyProgress };
+      completed0: s.completed[0], completed1: s.completed[1], storyProgress: s.storyProgress };
     if (changed) restart();
   });
 

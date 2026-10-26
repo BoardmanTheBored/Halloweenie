@@ -30,6 +30,11 @@ Main risk: the art pipeline (Gemini output split into transparent layers, fit to
 - [x] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8. *(Art swapped and committed `4f7492c`; browser story run clean at 390x844 and 360x640. Second pass done 2026-10-26, see Evidence below: checks 3-5 and 8-9 re-run, timing and tone approved unchanged.)*
 - [x] 7. Deploy to GitHub Pages and test on a physical phone (iOS silent switch, audio loop). Unlocks Playtest 1. *(Live at https://boardmanthebored.github.io/Halloweenie/; see Evidence below. Android and one iOS tester report no problems.)*
 
+Phase 2 (stories 2 and 3; decisions in `spec.md`, Phase 2 section):
+
+- [x] 8. Fountain story ("Remember"): unlocked by the statue story; tap the water three times; reflection finale; persistent dim reflection and main-scene sheen; Reset; hint ladders. Verify: checks 5-12 for story 2. *(Built and agent-tested in Edge at 390x844 and 360x640: lock, three taps by touch and keyboard, finale, pause mid-finale, hints, Reset and replay. Developer tested; layout and close-up layering adjusted per feedback.)*
+- [ ] 9. Gates story ("Come in"): two lanterns, then the knocker; gates swing open, wait, close; persistent warm glow and mist; Reset; hint ladders. Verify: checks 5-12 for story 3.
+
 Each checkpoint ends with a git commit after the Developer has tested it.
 
 Test each result before continuing, including related behavior that already works. Update priorities as evidence emerges and preserve meaningful working checkpoints in git. Before delivery, verify the deployed app against the brief and specification.

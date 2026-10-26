@@ -3,12 +3,14 @@
 Hallo.overlay = (() => {
   const el = document.getElementById('overlay');
   const back = document.getElementById('overlay-back');
+  const LABELS = { 1: 'Statue close-up', 2: 'Fountain close-up', 3: 'Gates close-up' };
   let opener = null;                          // element to return focus to on close
 
   function open(story, fromEl) {
     if (Hallo.state.activeStory !== null) return;
     opener = fromEl || null;
     el.dataset.story = String(story);
+    el.setAttribute('aria-label', LABELS[story]);
     // A completed story reopens in its finished state (full progress, Reset available).
     Hallo.setState({ activeStory: story, storyProgress: Hallo.state.completed[story - 1] ? 3 : 0 });
     Hallo.audio.play('open');

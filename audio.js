@@ -94,6 +94,13 @@ Hallo.audio = {
       [[1, 1], [2, 0.55], [2.4, 0.35], [3, 0.25], [4.2, 0.15], [5.4, 0.08]]
         .forEach(([ratio, amp], i) => Hallo.audio.tone(ctx, out, 196 * ratio, t, 5 / (1 + i * 0.35), 0.12 * amp));
     },
+    // Fountain: three water drops, each a different note (a pentatonic climb), with a faint overtone.
+    drop1(ctx, out, t) { Hallo.audio.drop(ctx, out, 392, t); },
+    drop2(ctx, out, t) { Hallo.audio.drop(ctx, out, 494, t); },
+    drop3(ctx, out, t) { Hallo.audio.drop(ctx, out, 587, t); },
+    // Fountain finale: a rising shimmer as the reflection appears, then a soft wash as the ripples fade.
+    shimmer(ctx, out, t) { [784, 988, 1175, 1568].forEach((f, i) => Hallo.audio.tone(ctx, out, f, t + i * 0.22, 2.4, 0.06)); },
+    wash(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 2.2, 0.08, 1400, 300); },
     // Hint appearing: one quiet high note. Reset: two soft falling notes.
     hint(ctx, out, t) { Hallo.audio.tone(ctx, out, 1047, t, 1.6, 0.04); },
     reset(ctx, out, t) { Hallo.audio.tone(ctx, out, 660, t, 1, 0.07); Hallo.audio.tone(ctx, out, 494, t + 0.18, 1.3, 0.07); },
@@ -111,6 +118,12 @@ Hallo.audio = {
     g.gain.exponentialRampToValueAtTime(vol, t + 0.03);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
+  },
+
+  // A water drop: a quick pitch dip into the note, a long soft ring, and a quiet octave above.
+  drop(ctx, out, freq, t) {
+    Hallo.audio.tone(ctx, out, freq * 1.5, t, 1.8, 0.1, freq);
+    Hallo.audio.tone(ctx, out, freq * 2, t + 0.02, 1.2, 0.03);
   },
 
   // A sine that fades in slowly over 60% of its length, then out (swells).

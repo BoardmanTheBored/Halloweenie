@@ -63,6 +63,16 @@ Input and accessibility
 12. Failure behavior: if audio is blocked or fails, the visuals still work and no error is shown to the user.
 Verification: run in browser preview, then on a physical phone over HTTPS (iOS silent-switch and loop behavior from `research.md` Technical notes).
 
+## Phase 2: fountain and gates stories (Developer approved 2026-10-26)
+
+Concepts, order and overlay rules are in `research.md` (Decisions); this section records only the build decisions.
+- **Persistent changes use CSS effects only** (no new art): fountain keeps a dim lingering reflection in its close-up and a faint silver sheen on the main-scene water; gates keep a warm glow and slow mist in the gatehouse archway (story 3).
+- **Audio is synthesized** (same approach as story 1); no CC0 recordings for stories 2-3.
+- **Fountain finale (7 s):** moonlight falls into the basin, the reflection of the lit castle cross-fades in, a tower window pulses, ripples wash away. The waving silhouette from `research.md` is replaced by that window pulse because no silhouette art exists.
+- **Art mapping:** `Closeup_Background` is the fountain backdrop; `Fountain_Close` is the empty basin and `Fountain_Close_Reflection` the same basin with the castle reflected; `Gate Closeup` is the gates backdrop; `Gate_Doors_Closed`, `Knocker`, `Lantern_Unlit`, `Lantern_Lit` are the gate pieces.
+- **Unlock rule:** each story's main-scene object gives soft feedback only until the previous story is complete. Hint ladders for a story appear only once it is unlocked.
+- **Acceptance:** checks 5-12 above apply to each new story, plus: the fountain's three taps each have a distinct sound and a lasting ring.
+
 ## Scope and revisions
 
 - Excluded for now: music, persistence across reloads, stories 2-3 implementation, CC0 audio swap, deployment.

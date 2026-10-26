@@ -1,15 +1,16 @@
-// Main-scene hotspots. Stories unlock in order, so only the statue responds fully for now;
-// the fountain and gates give soft "not yet" feedback (spec: locked objects never trigger).
+// Main-scene hotspots. Stories unlock in order (statue, fountain, gates); a locked object gives
+// soft "not yet" feedback and never triggers (spec). A completed story reopens its overlay for Reset.
 (() => {
-  const statue = document.getElementById('hot-statue');
-  statue.addEventListener('click', () => {
-    if (Hallo.state.paused) return;
-    Hallo.overlay.open(1, statue);
-  });
-  ['hot-fountain', 'hot-gates'].forEach((id) => {
-    document.getElementById(id).addEventListener('click', (e) => {
+  const open = (id, story, unlocked) => {
+    const el = document.getElementById(id);
+    el.addEventListener('click', (e) => {
       if (Hallo.state.paused) return;
-      Hallo.feedback.soft(e);
+      if (unlocked(Hallo.state)) Hallo.overlay.open(story, el);
+      else Hallo.feedback.soft(e);
     });
-  });
+  };
+  open('hot-statue', 1, () => true);
+  open('hot-fountain', 2, (s) => s.completed[0]);
+  // Gates (story 3) arrive in the next checkpoint: soft feedback only.
+  open('hot-gates', 3, () => false);
 })();

@@ -23,7 +23,7 @@
       <img class="gatehouse" src="assets/gatehouse.webp" alt="" draggable="false">
       <img class="lantern lantern-l" src="assets/lantern-lit.webp" alt="" draggable="false">
       <img class="lantern lantern-r" src="assets/lantern-lit.webp" alt="" draggable="false">
-      <div class="fountain"><img src="assets/fountain.webp" alt="" draggable="false"></div>
+      <div class="fountain"><img src="assets/fountain.webp" alt="" draggable="false"><div class="fountain-sheen"></div></div>
       <!-- Statue: front pose, and the turned pose shown once story 1 is complete (html.story1-done) -->
       <div class="statue"><img class="statue-front" src="assets/statue.webp" alt="" draggable="false"><img class="statue-turned" src="assets/statue-turned.webp" alt="" draggable="false"></div>
     </div>
@@ -82,6 +82,20 @@
       </div>
       <button class="target" id="t-moon" type="button" aria-label="The moon"></button>
     </div>
+    <!-- Story 2, the fountain: backdrop, moon, then the basin (empty and reflecting images stacked) -->
+    <div class="closeup" id="closeup-2">
+      <img class="cu-backdrop" src="assets/closeup-backdrop.webp" alt="" draggable="false">
+      <img class="cu-moon" src="assets/moon.webp" alt="" draggable="false">
+      <div class="cu2-beam"></div>
+      <div class="cu2-art">
+        <img class="cu2-empty" src="assets/fountain-close.webp" alt="" draggable="false">
+        <img class="cu2-refl" src="assets/fountain-close-reflection.webp" alt="" draggable="false">
+        <div class="cu2-window"></div>
+        <div class="cu2-ring cu2-ring-1"></div><div class="cu2-ring cu2-ring-2"></div><div class="cu2-ring cu2-ring-3"></div>
+        <!-- Trigger: the water, tapped three times -->
+        <button class="target" id="t-water" type="button" aria-label="The still water in the basin"></button>
+      </div>
+    </div>
     <button class="icon-btn back-btn" id="overlay-back" type="button" aria-label="Back to the castle">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -109,6 +123,7 @@
   <script src="overlay.js"></script>
   <script src="hints.js"></script>
   <script src="story-statue.js"></script>
+  <script src="story-fountain.js"></script>
   <script src="scene.js"></script>
   <script src="main.js"></script>
 </body>
