@@ -27,7 +27,7 @@ Main risk: the art pipeline (Gemini output split into transparent layers, fit to
 - [x] 3. Ambience: fog, gate-lantern flicker, bats, synthesized wind loop. Verify: checks 4, 5 (pause stops everything).
 - [x] 4. Overlay shell and statue interaction: fade overlay, back arrow, Escape, ordered taps, progress, soft wrong-tap feedback, keyboard. Verify: checks 6, 7, 11, plus Pause mid-story.
 - [x] 5. Statue story sequence: 5-10 s timeline, synthesized sounds, persistent change, Reset, hint ladder. Verify: checks 8-10, 12; replay without reload; audio blocked still works.
-- [x] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8. *(Art swapped and committed `4f7492c`; browser story run clean at 390x844 and 360x640. Second-pass timing/tone tuning and a full re-run of checks 3-5 not done yet.)*
+- [x] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8. *(Art swapped and committed `4f7492c`; browser story run clean at 390x844 and 360x640. Second pass done 2026-10-26, see Evidence below: checks 3-5 and 8-9 re-run, timing and tone approved unchanged.)*
 - [x] 7. Deploy to GitHub Pages and test on a physical phone (iOS silent switch, audio loop). Unlocks Playtest 1. *(Live at https://boardmanthebored.github.io/Halloweenie/; see Evidence below. Android and one iOS tester report no problems.)*
 
 Each checkpoint ends with a git commit after the Developer has tested it.
@@ -39,6 +39,12 @@ Test each result before continuing, including related behavior that already work
 Record non-identifying playtest observations, separating what Users did or said from your interpretation. Use the findings to choose revision priorities and record what changed and how you verified the improvement.
 
 Keep implementation progress and verification here. Update `research.md` when evidence changes a decision and `spec.md` when intended behavior changes; link to those updates rather than duplicating them. Record consequential changes, not every small adjustment.
+
+### Checkpoint 6 second pass: timing and tone (2026-10-26)
+
+- Agent re-ran acceptance checks 3, 4, 5, 8 and 9 in Edge at 390x844 and 360x640 on the real art: all pass, no page errors. Pause froze the clock, fog and the mid-finale animation, and resume continued. Check 3 note: at 360x640 the page cannot scroll; the stage is taller than the viewport and cropped by design.
+- Agent observation: mid-finale (about 2.6-4.2 s) the front and turned statue images overlap, giving a ghostly double image of the head and robe folds.
+- Developer decision: keep the long dissolve (it reads as eerie), and said the bell, grind and swell sounds felt fine. No timing or tone changes made; the 7.0 s finale timeline stands. Audio sync was judged by the Developer by ear; the Agent cannot hear audio.
 
 ### Checkpoint 7: deployment and first phone test (2026-10-26)
 
