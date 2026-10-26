@@ -44,7 +44,7 @@ Keep implementation progress and verification here. Update `research.md` when ev
 
 - Deployed from `main` (root) to GitHub Pages; the Developer enabled Pages in repo Settings. The deployed page returned 200 and an automated Edge run at 390x844 completed the whole statue story (taps, finale, persistent change, overlay closed). Only console errors: two 404s for `favicon.ico` (no icon file; harmless).
 - Developer on a Samsung Galaxy S25 (Android): the game ran without errors or bugs, and the audio loop played fine.
-- A playtester on iOS 27.0.1 reported that it works fine, with the ringer switch on silent, and that the audio sounded fine. Interpretation: this confirms iOS audio unlock and the silent-switch case from `research.md` Technical notes for this one device and version (single report; gapless looping was not tested separately).
+- A playtester on iOS 27.0.1 reported that it works fine, with the ringer switch on silent, and that the audio sounded fine. Interpretation: this confirms iOS audio unlock and the silent-switch case from `research.md` Technical notes for this one device and version The tester also heard no gap or click when the loop restarts, so looping is gapless on that device (single report).
 - Known and accepted by the Developer: at 360x640 the stage crops top and bottom, so the moon's top edge is cut and Pause overlaps it.
 
 ## Saving transcripts
