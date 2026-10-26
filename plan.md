@@ -22,11 +22,11 @@ Create your own checklist for the next few results, using the workflow in `brief
 
 Main risk: the art pipeline (Gemini output split into transparent layers, fit to the phone viewport). Mitigation: build with CSS-shape placeholders first and swap in real art at checkpoint 6. Timing and tone of the story sequence tuned on placeholders will need a second pass after the swap. Phase 1 scope is the statue story only. Hosting: GitHub Pages. Acceptance check numbers refer to `spec.md`.
 
-- [ ] 1. Stage and layers: fixed-aspect stage scaled to viewport, layer stack with placeholder shapes. Verify: checks 3-4 (layout) at 390x844 and 360x640, no scroll.
-- [ ] 2. Start screen, central state, Play/Pause: reduced-motion note, Enter resumes audio context, one state object. Verify: checks 1, 2, 5.
-- [ ] 3. Ambience: fog, gate-lantern flicker, bats, synthesized wind loop. Verify: checks 4, 5 (pause stops everything).
-- [ ] 4. Overlay shell and statue interaction: fade overlay, back arrow, Escape, ordered taps, progress, soft wrong-tap feedback, keyboard. Verify: checks 6, 7, 11, plus Pause mid-story.
-- [ ] 5. Statue story sequence: 5-10 s timeline, synthesized sounds, persistent change, Reset, hint ladder. Verify: checks 8-10, 12; replay without reload; audio blocked still works.
+- [x] 1. Stage and layers: fixed-aspect stage scaled to viewport, layer stack with placeholder shapes. Verify: checks 3-4 (layout) at 390x844 and 360x640, no scroll.
+- [x] 2. Start screen, central state, Play/Pause: reduced-motion note, Enter resumes audio context, one state object. Verify: checks 1, 2, 5.
+- [x] 3. Ambience: fog, gate-lantern flicker, bats, synthesized wind loop. Verify: checks 4, 5 (pause stops everything).
+- [x] 4. Overlay shell and statue interaction: fade overlay, back arrow, Escape, ordered taps, progress, soft wrong-tap feedback, keyboard. Verify: checks 6, 7, 11, plus Pause mid-story.
+- [x] 5. Statue story sequence: 5-10 s timeline, synthesized sounds, persistent change, Reset, hint ladder. Verify: checks 8-10, 12; replay without reload; audio blocked still works.
 - [x] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8. *(Art swapped and committed `4f7492c`; browser story run clean at 390x844 and 360x640. Second-pass timing/tone tuning and a full re-run of checks 3-5 not done yet.)*
 - [x] 7. Deploy to GitHub Pages and test on a physical phone (iOS silent switch, audio loop). Unlocks Playtest 1. *(Live at https://boardmanthebored.github.io/Halloweenie/; see Evidence below. Android and one iOS tester report no problems.)*
 
