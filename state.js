@@ -10,6 +10,7 @@ Hallo.state = {
   activeStory: null,       // null | 1 | 2 | 3
   storyProgress: 0,
   sequence: false,         // a story finale is playing: all other input is disabled
+  endScreen: false,        // the story-complete / credits panel is open
   completed: [false, false, false],
 };
 

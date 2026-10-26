@@ -51,6 +51,8 @@
 
   <!-- 4. UI: anchored to the viewport, not the stage, so it is never cropped on short screens -->
   <div class="layer-ui">
+    <!-- Credits: always reachable from the scene (hidden while an overlay, finale or this panel is open) -->
+    <button class="credits-link" id="credits-link" type="button">Credits</button>
     <div class="ui-controls" id="ui-controls">
       <button class="icon-btn" id="pause-btn" type="button" aria-label="Pause" aria-pressed="false">
         <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
@@ -127,6 +129,24 @@
     <button class="pill-btn reset-btn" id="overlay-reset" type="button">Reset</button>
   </div>
 
+  <!-- Story-complete / credits panel: opens after the gates finale, or from the Credits link.
+       Below the UI layer, so Play/Pause stays reachable. -->
+  <section id="end-screen" class="end-screen" role="dialog" aria-modal="true" aria-labelledby="end-title" inert>
+    <div class="end-inner">
+      <p class="end-kicker end-complete-only">Story complete</p>
+      <h2 id="end-title">Credits</h2>
+      <p class="end-text end-complete-only">The statue looked, the water remembered, and the gates opened. The castle has its guest at last.</p>
+      <ul class="credits-list">
+        <li><span>Created by</span> Anthony Boardman</li>
+        <li><span>Code written with</span> Claude Code, by Anthropic</li>
+        <li><span>Scene art</span> Generated with Google Gemini</li>
+        <li><span>Sound</span> Synthesized in the browser with the Web Audio API</li>
+        <li><span>Built with</span> plain HTML, CSS and JavaScript, no external libraries</li>
+      </ul>
+      <button class="pill-btn end-continue" id="end-continue" type="button">Back to the castle</button>
+    </div>
+  </section>
+
   <!-- Tap ripples for soft feedback; above the overlay, below the UI -->
   <div id="ripple-layer" aria-hidden="true"></div>
 
@@ -149,6 +169,7 @@
   <script src="story-statue.js"></script>
   <script src="story-fountain.js"></script>
   <script src="story-gates.js"></script>
+  <script src="end.js"></script>
   <script src="scene.js"></script>
   <script src="main.js"></script>
 </body>

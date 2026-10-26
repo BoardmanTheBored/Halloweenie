@@ -69,6 +69,7 @@
       closeup.classList.remove(...ACTIVE, ...SEQUENCE);
       Hallo.setState({ completed: [Hallo.state.completed[0], Hallo.state.completed[1], true], sequence: false });
       Hallo.overlay.close();
+      Hallo.endScreen.open('complete');                       // story complete, with the credits
     });
   }
 

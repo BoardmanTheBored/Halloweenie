@@ -37,7 +37,7 @@ Hallo.hints = (() => {
   ];
   function ladder() {
     const s = Hallo.state;
-    if (!s.started || s.sequence) return null;
+    if (!s.started || s.sequence || s.endScreen) return null;
     if (s.activeStory === null) return !s.completed[0] ? MAIN : !s.completed[1] ? MAIN_FOUNTAIN : !s.completed[2] ? MAIN_GATES : null;
     if (s.activeStory === 1 && !s.completed[0]) return STATUE;
     if (s.activeStory === 2 && !s.completed[1]) return FOUNTAIN;
@@ -79,9 +79,9 @@ Hallo.hints = (() => {
   let prev = {};
   Hallo.onChange((s) => {
     const changed = s.started !== prev.started || s.activeStory !== prev.activeStory
-      || s.sequence !== prev.sequence || s.completed[0] !== prev.completed0 || s.completed[1] !== prev.completed1 || s.completed[2] !== prev.completed2
+      || s.sequence !== prev.sequence || s.endScreen !== prev.endScreen || s.completed[0] !== prev.completed0 || s.completed[1] !== prev.completed1 || s.completed[2] !== prev.completed2
       || s.storyProgress > prev.storyProgress;
-    prev = { started: s.started, activeStory: s.activeStory, sequence: s.sequence,
+    prev = { started: s.started, activeStory: s.activeStory, sequence: s.sequence, endScreen: s.endScreen,
       completed0: s.completed[0], completed1: s.completed[1], completed2: s.completed[2], storyProgress: s.storyProgress };
     if (changed) restart();
   });

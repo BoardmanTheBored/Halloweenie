@@ -596,3 +596,43 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
 .reduced-motion .is-complete .cu3-mist, .reduced-motion .story3-done .gh-mist, .reduced-motion .story3-done .gh-glow,
 .reduced-motion .is-complete .cu3-lamp-glow, .reduced-motion .done-lampl .cu3-lamp-glow, .reduced-motion .done-lampr .cu3-lamp-glow { animation: none; }
 .reduced-motion .pop-lampl .cu3-lit, .reduced-motion .pop-lampr .cu3-lit, .reduced-motion .pop-knock .cu3-knocker { animation: none; }
+
+/* ======================= Story-complete / credits panel ======================= */
+/* Above the overlay, below the UI layer (so Play/Pause stays reachable). Fades in like the overlay. */
+.end-screen {
+  position: fixed; inset: 0; z-index: 3;
+  display: flex; padding: 24px; overflow-y: auto;      /* scrolls itself on very small screens; margin:auto centres otherwise */
+  text-align: center; color: #e8ebff;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(201, 207, 232, 0.2), transparent 40%),
+    linear-gradient(rgba(13, 11, 43, 0.93), rgba(11, 10, 28, 0.96));
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+}
+.end-screen.open { opacity: 1; visibility: visible; transition: opacity 0.8s ease; }
+.end-inner { margin: auto; max-width: 22rem; display: grid; gap: 16px; justify-items: center; }
+.end-kicker { font-size: 0.95rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--candle); }
+.end-screen h2 { font-size: clamp(1.7rem, 8vw, 2.3rem); font-weight: normal; letter-spacing: 0.02em; line-height: 1.2; }
+.end-text { font-size: 1.1rem; line-height: 1.5; color: #d6dbf3; }
+.credits-list { list-style: none; display: grid; gap: 10px; margin: 6px 0 4px; font-size: 1rem; line-height: 1.4; color: #e8ebff; }
+.credits-list span { display: block; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: #aab1d6; }
+.end-continue { margin-top: 8px; min-width: 200px; }
+/* Credits-only mode hides the story message. */
+.end-screen[data-mode="credits"] .end-complete-only { display: none; }
+
+/* Credits link: small and unobtrusive, top-left of the scene (the overlay's back arrow lives there too). */
+.credits-link {
+  position: absolute; pointer-events: auto;
+  top: max(10px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left));
+  min-height: 44px; padding: 0 14px;
+  font: inherit; font-size: 0.95rem; letter-spacing: 0.06em;
+  color: var(--silver); background: rgba(11, 10, 28, 0.5);
+  border: 1px solid rgba(201, 207, 232, 0.4); border-radius: 22px;
+  opacity: 0.7; cursor: pointer;
+}
+.credits-link:hover, .credits-link:focus-visible { opacity: 1; }
+.credits-link:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
+.credits-link[hidden] { display: none; }
+
+/* Reduced motion: a quick fade instead of a slow one. */
+.reduced-motion .end-screen, .reduced-motion .end-screen.open { transition-duration: 0.15s; }

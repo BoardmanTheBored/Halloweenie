@@ -18,7 +18,7 @@
     root.classList.toggle('story3-done', s.completed[2]);
     // Scene input is off before Enter, while paused, and while an overlay is open
     // (inert also blocks keyboard focus).
-    stage.inert = !s.started || s.paused || s.activeStory !== null;
+    stage.inert = !s.started || s.paused || s.activeStory !== null || s.endScreen;
     motionNote.hidden = !s.reducedMotion;
     pauseBtn.setAttribute('aria-label', s.paused ? 'Play' : 'Pause');
     pauseBtn.setAttribute('aria-pressed', String(s.paused));
