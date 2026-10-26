@@ -101,6 +101,22 @@ Hallo.audio = {
     // Fountain finale: a rising shimmer as the reflection appears, then a soft wash as the ripples fade.
     shimmer(ctx, out, t) { [784, 988, 1175, 1568].forEach((f, i) => Hallo.audio.tone(ctx, out, f, t + i * 0.22, 2.4, 0.06)); },
     wash(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 2.2, 0.08, 1400, 300); },
+    // Gates: each lantern catches with a soft whoosh and its own note; the knocker is two low thuds with an echo.
+    ignite1(ctx, out, t) {
+      Hallo.audio.noise(ctx, out, t, 0.5, 0.1, 300, 1200);
+      Hallo.audio.tone(ctx, out, 330, t + 0.1, 1.4, 0.07); Hallo.audio.tone(ctx, out, 495, t + 0.1, 1.2, 0.04);
+    },
+    ignite2(ctx, out, t) {
+      Hallo.audio.noise(ctx, out, t, 0.5, 0.1, 400, 1500);
+      Hallo.audio.tone(ctx, out, 392, t + 0.1, 1.4, 0.07); Hallo.audio.tone(ctx, out, 588, t + 0.1, 1.2, 0.04);
+    },
+    knock(ctx, out, t) {
+      [[0, 0.22], [0.38, 0.2], [0.95, 0.06], [1.3, 0.05]].forEach(([dt, v]) => Hallo.audio.tone(ctx, out, 95, t + dt, 0.55, v, 52));
+    },
+    // Gates: a slow low creak opening, the same sweep reversed closing, and a soft thud as they settle.
+    creak(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 3, 0.1, 160, 380); Hallo.audio.tone(ctx, out, 92, t, 3, 0.04, 118); },
+    creakClose(ctx, out, t) { Hallo.audio.noise(ctx, out, t, 2.2, 0.08, 380, 170); Hallo.audio.tone(ctx, out, 118, t, 2.2, 0.04, 92); },
+    thud(ctx, out, t) { Hallo.audio.tone(ctx, out, 70, t, 0.6, 0.12, 45); Hallo.audio.noise(ctx, out, t, 0.3, 0.04, 200, 100); },
     // Hint appearing: one quiet high note. Reset: two soft falling notes.
     hint(ctx, out, t) { Hallo.audio.tone(ctx, out, 1047, t, 1.6, 0.04); },
     reset(ctx, out, t) { Hallo.audio.tone(ctx, out, 660, t, 1, 0.07); Hallo.audio.tone(ctx, out, 494, t + 0.18, 1.3, 0.07); },

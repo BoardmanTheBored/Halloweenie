@@ -20,7 +20,7 @@
     </div>
     <div class="layer layer-terrain"><img class="terrain-img" src="assets/terrain.webp" alt="" draggable="false"></div>
     <div class="layer layer-mid">
-      <img class="gatehouse" src="assets/gatehouse.webp" alt="" draggable="false">
+      <div class="gatehouse"><img src="assets/gatehouse.webp" alt="" draggable="false"><div class="gh-glow"></div><div class="gh-mist"></div></div>
       <img class="lantern lantern-l" src="assets/lantern-lit.webp" alt="" draggable="false">
       <img class="lantern lantern-r" src="assets/lantern-lit.webp" alt="" draggable="false">
       <div class="fountain"><img src="assets/fountain.webp" alt="" draggable="false"><div class="fountain-sheen"></div></div>
@@ -96,6 +96,30 @@
         <button class="target" id="t-water" type="button" aria-label="The still water in the basin"></button>
       </div>
     </div>
+    <!-- Story 3, the gates: wall and arch backdrop, double gates in the arch, two lanterns, the knocker -->
+    <div class="closeup" id="closeup-3">
+      <img class="cu3-moon" src="assets/moon.webp" alt="" draggable="false">
+      <img class="cu3-backdrop" src="assets/gate-backdrop.webp" alt="" draggable="false">
+      <div class="cu3-spill"></div>
+      <div class="cu3-floor"></div>
+      <div class="cu3-gates">
+        <div class="cu3-leaf cu3-leaf-l"><img src="assets/gates-closed.webp" alt="" draggable="false"></div>
+        <div class="cu3-leaf cu3-leaf-r"><img src="assets/gates-closed.webp" alt="" draggable="false"></div>
+      </div>
+      <div class="cu3-mist"></div>
+      <div class="cu3-lamp cu3-lamp-l">
+        <div class="cu3-lamp-glow"></div>
+        <img src="assets/lantern-unlit.webp" alt="" draggable="false"><img class="cu3-lit" src="assets/lantern-lit.webp" alt="" draggable="false">
+        <button class="target" id="t-lamp-l" type="button" aria-label="The left lantern"></button>
+      </div>
+      <div class="cu3-lamp cu3-lamp-r">
+        <div class="cu3-lamp-glow"></div>
+        <img src="assets/lantern-unlit.webp" alt="" draggable="false"><img class="cu3-lit" src="assets/lantern-lit.webp" alt="" draggable="false">
+        <button class="target" id="t-lamp-r" type="button" aria-label="The right lantern"></button>
+      </div>
+      <img class="cu3-knocker" src="assets/knocker.webp" alt="" draggable="false">
+      <button class="target" id="t-knocker" type="button" aria-label="The door knocker"></button>
+    </div>
     <button class="icon-btn back-btn" id="overlay-back" type="button" aria-label="Back to the castle">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -124,6 +148,7 @@
   <script src="hints.js"></script>
   <script src="story-statue.js"></script>
   <script src="story-fountain.js"></script>
+  <script src="story-gates.js"></script>
   <script src="scene.js"></script>
   <script src="main.js"></script>
 </body>

@@ -11,6 +11,5 @@
   };
   open('hot-statue', 1, () => true);
   open('hot-fountain', 2, (s) => s.completed[0]);
-  // Gates (story 3) arrive in the next checkpoint: soft feedback only.
-  open('hot-gates', 3, () => false);
+  open('hot-gates', 3, (s) => s.completed[1]);
 })();

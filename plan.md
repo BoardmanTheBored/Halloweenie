@@ -33,7 +33,7 @@ Main risk: the art pipeline (Gemini output split into transparent layers, fit to
 Phase 2 (stories 2 and 3; decisions in `spec.md`, Phase 2 section):
 
 - [x] 8. Fountain story ("Remember"): unlocked by the statue story; tap the water three times; reflection finale; persistent dim reflection and main-scene sheen; Reset; hint ladders. Verify: checks 5-12 for story 2. *(Built and agent-tested in Edge at 390x844 and 360x640: lock, three taps by touch and keyboard, finale, pause mid-finale, hints, Reset and replay. Developer tested; layout and close-up layering adjusted per feedback.)*
-- [ ] 9. Gates story ("Come in"): two lanterns, then the knocker; gates swing open, wait, close; persistent warm glow and mist; Reset; hint ladders. Verify: checks 5-12 for story 3.
+- [x] 9. Gates story ("Come in"): two lanterns, then the knocker; gates swing open, wait, close; persistent warm glow and mist; Reset; hint ladders. Verify: checks 5-12 for story 3. *(Built and agent-tested in Edge at 390x844 and 360x640: lock until story 2, lanterns then knocker by touch and keyboard, wrong taps reset, 8.6 s finale, pause mid-finale, hints, Reset and replay. Developer tested; knocker kept hidden through the closing phase per feedback.)*
 
 Each checkpoint ends with a git commit after the Developer has tested it.
 

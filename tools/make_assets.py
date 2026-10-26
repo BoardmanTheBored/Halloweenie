@@ -15,6 +15,8 @@ SRC, DST = "reference/art", "assets"
 HI = 24                 # max-channel value at or below which a pixel counts as black
 GLOW_GRAD = 3.0         # gradient below which a dim pixel counts as smooth glow
 BG_RATIO = 9 / 16        # portrait backgrounds are cover-cropped to this
+# Kept at full width (the stage fits it by width): cropping would cut off the lantern brackets.
+NO_CROP = {"Gate Closeup"}
 
 # source file -> output name
 CUTOUTS = {
@@ -100,7 +102,7 @@ for src, name in CUTOUTS.items():
     print("cutout", name, out.size)
 for src, name in BACKGROUNDS.items():
     im = Image.open(f"{SRC}/{src}.jpg").convert("RGB")
-    if abs(im.width / im.height - BG_RATIO) > 0.01:
+    if src not in NO_CROP and abs(im.width / im.height - BG_RATIO) > 0.01:
         im = cover_crop(im, BG_RATIO)
     im.save(f"{DST}/{name}.webp", quality=88, method=6)
     print("background", name, im.size)
