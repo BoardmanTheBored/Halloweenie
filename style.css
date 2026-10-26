@@ -42,78 +42,32 @@ body {
 .layer { position: absolute; inset: 0; }
 .layer > * { position: absolute; }
 
-/* ---------- 1. Background art placeholders ---------- */
+/* ---------- 1. Scene art ----------
+   Images are placed in % of the stage (width only; height follows each image's own ratio).
+   Source art: reference/art -> tools/make_assets.py -> assets/. */
+.layer img, .closeup img { display: block; user-select: none; -webkit-user-select: none; }
+.sky-img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.moon { left: 34%; top: 7%; width: 56%; border-radius: 50%; box-shadow: 0 0 8cqw 3cqw rgba(201, 207, 232, 0.35); }
 
-.layer-sky {
-  background:
-    radial-gradient(circle at 20% 12%, #fff 0 0.25cqw, transparent 0.4cqw),
-    radial-gradient(circle at 80% 8%, #fff 0 0.25cqw, transparent 0.4cqw),
-    radial-gradient(circle at 12% 30%, #fff 0 0.2cqw, transparent 0.35cqw),
-    radial-gradient(circle at 90% 26%, #fff 0 0.2cqw, transparent 0.35cqw),
-    radial-gradient(circle at 40% 6%, #fff 0 0.2cqw, transparent 0.35cqw),
-    linear-gradient(#0d0b2b 0%, #221f5c 55%, #3a2f73 100%);
-}
-.moon {
-  left: 34%; top: 7%; width: 56%; aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 38%, #f4f1ff, #cfd3f0 60%, #aab0d8);
-  box-shadow: 0 0 8cqw 3cqw rgba(201, 207, 232, 0.35);
-}
-
-/* Castle sits on the cliff, overlapping the moon: the focal point. */
-.layer-castle > * { background: #0f0d26; }
-.castle-keep  { left: 30%; top: 30%; width: 44%; height: 26%;
-  clip-path: polygon(0 100%, 0 12%, 10% 12%, 10% 0, 22% 0, 22% 12%, 78% 12%, 78% 0, 90% 0, 90% 12%, 100% 12%, 100% 100%); }
-.castle-tower { width: 11%; }
-.castle-tower-l { left: 24%; top: 24%; height: 32%;
-  clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%); }
-.castle-tower-r { left: 69%; top: 27%; height: 29%;
-  clip-path: polygon(0 100%, 0 28%, 50% 0, 100% 28%, 100% 100%); }
-.castle-tower-c { left: 46.5%; top: 14%; width: 9%; height: 42%;
-  clip-path: polygon(0 100%, 0 22%, 50% 0, 100% 22%, 100% 100%); }
-.castle-window { left: 49.5%; top: 30%; width: 3%; height: 5%;
-  background: var(--candle) !important; border-radius: 50% 50% 0 0; }
+/* Castle sits on the cliff, overlapping the moon: the focal point. Its base hides behind the terrain crest. */
+.castle-img { left: 17%; top: 19%; width: 66%; }
 
 .layer-terrain > *, .layer-mid > *, .statue > *, .fountain > * { position: absolute; }
-.cliff {
-  left: 0; right: 0; top: 52%; height: 22%;
-  background: linear-gradient(#17143a, #0f0d26);
-  clip-path: polygon(0 40%, 18% 22%, 34% 28%, 50% 8%, 70% 20%, 86% 10%, 100% 30%, 100% 100%, 0 100%);
-}
-.ground {
-  left: 0; right: 0; top: 66%; bottom: 0;
-  background: linear-gradient(#1d1946, #0b0a1c);
-}
-/* Gatehouse: a separate wall-and-towers structure on the cliff path, in front of the castle.
-   Slightly lighter than the castle so the two read as distinct shapes. */
-.gatehouse { left: 33%; top: 52%; width: 34%; height: 15%; }
-.gatehouse > * { position: absolute; background: #2e2a6a; }
-.gh-wall  { left: 12%; right: 12%; bottom: 0; height: 62%;
-  clip-path: polygon(0 100%, 0 14%, 12% 14%, 12% 0, 26% 0, 26% 14%, 74% 14%, 74% 0, 88% 0, 88% 14%, 100% 14%, 100% 100%); }
-.gh-tower { bottom: 0; width: 22%; height: 100%;
-  clip-path: polygon(0 100%, 0 30%, 50% 0, 100% 30%, 100% 100%); }
-.gh-tower-l { left: 0; }
-.gh-tower-r { right: 0; }
-.gh-arch  { left: 36%; width: 28%; bottom: 0; height: 52%; background: #05040f !important;
-  border-radius: 50% 50% 0 0 / 35% 35% 0 0; }
-.fountain { left: 36%; top: 76%; width: 28%; height: 13%; }
-.fountain-basin {
-  left: 0; right: 0; bottom: 0; height: 45%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 40%, #7f8cc4, #3a3f7c);
-  border: 0.8cqw solid #6a6a99;
-}
-.fountain-spout { left: 46%; bottom: 30%; width: 8%; height: 60%; background: #6a6a99; border-radius: 40% 40% 0 0; }
-.statue { left: 8%; top: 66%; width: 18%; height: 20%; }
-.statue-head { left: 28%; top: 0; width: 44%; aspect-ratio: 1; border-radius: 50%; background: #8d90b3; }
-.statue-body { left: 18%; top: 28%; width: 64%; bottom: 0; background: #7a7da3;
-  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%); }
-.statue-hand { left: 74%; top: 12%; width: 16%; height: 30%; background: #8d90b3; border-radius: 40%; transform: rotate(-12deg); }
+.terrain-img { left: 0; top: 50%; width: 100%; height: 50%; object-fit: cover; object-position: 50% 0; }
+
+/* Gatehouse: on the cliff path in front of the castle. */
+.gatehouse { left: 32%; top: 54%; width: 36%; }
+.fountain { left: 42%; top: 76%; width: 40%; aspect-ratio: 848 / 699; }
+.fountain img { inset: 0; width: 100%; height: 100%; }
+.statue { left: 7%; top: 67%; width: 20%; aspect-ratio: 314 / 700; }
+.statue img { inset: 0; width: 100%; height: 100%; }
+.statue-turned { opacity: 0; }
+.story1-done .statue-turned { opacity: 1; }   /* persistent change: the head has turned toward the castle */
+.story1-done .statue-front { opacity: 0; }
 
 .layer-fore { pointer-events: none; }
-.fore-left, .fore-right { bottom: 0; background: #05040f; }
-.fore-left  { left: 0;  width: 30%; height: 18%; clip-path: polygon(0 0, 30% 40%, 60% 10%, 100% 55%, 100% 100%, 0 100%); }
-.fore-right { right: 0; width: 34%; height: 22%; clip-path: polygon(0 60%, 25% 15%, 55% 45%, 80% 0, 100% 30%, 100% 100%, 0 100%); }
+.fore-left  { left: 0;  bottom: 0; width: 40%; }
+.fore-right { right: 0; bottom: 0; width: 38%; }
 
 /* ---------- 2. Effect layers (empty until checkpoint 3) ---------- */
 .layer-fx { pointer-events: none; }
@@ -127,9 +81,9 @@ body {
   border-radius: 8px;
 }
 .hotspot:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
-#hot-gates    { left: 31%; top: 51%; width: 38%; height: 17%; }
-#hot-fountain { left: 33%; top: 74%; width: 34%; height: 16%; }
-#hot-statue   { left: 5%;  top: 64%; width: 24%; height: 24%; }
+#hot-gates    { left: 31%; top: 54%; width: 38%; height: 18%; }
+#hot-fountain { left: 41%; top: 75%; width: 42%; height: 16%; }
+#hot-statue   { left: 5%;  top: 66%; width: 24%; height: 23%; }
 
 /* Debug: append ?debug to the URL (adds class via main.js) to see hotspot bounds. */
 .debug .hotspot { outline: 2px dashed #ff5ca8; }
@@ -252,17 +206,17 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
 @keyframes fog-drift { to { transform: translateX(-50%); } }
 
 /* Gate lanterns: small lantern bodies on the gatehouse, warm glow flickering irregularly. */
-.lantern { width: 1.8cqw; height: 3cqw; background: #f2c46d; border-radius: 30%; box-shadow: 0 0 1cqw #f2c46d; top: 60.2%; }
-.lantern-l { left: 42.3%; }
-.lantern-r { left: 56%; }
+.lantern { width: 4%; top: 61.3%; }
+.lantern-l { left: 40.4%; }
+.lantern-r { left: 55.6%; }
 .lantern-glow {
-  width: 16cqw; height: 16cqw; top: calc(61.7% - 8cqw);
+  width: 16cqw; height: 16cqw; top: calc(63.4% - 8cqw);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 196, 100, 0.75), rgba(255, 150, 60, 0.25) 40%, transparent 68%);
   animation: lantern-flicker 2.3s infinite;
 }
-.glow-l { left: calc(43.2% - 8cqw); }
-.glow-r { left: calc(56.9% - 8cqw); animation-duration: 3.1s; animation-delay: -1.1s; }
+.glow-l { left: calc(42.4% - 8cqw); }
+.glow-r { left: calc(57.6% - 8cqw); animation-duration: 3.1s; animation-delay: -1.1s; }
 @keyframes lantern-flicker {
   0%   { opacity: 0.85; transform: scale(1); }
   8%   { opacity: 0.55; transform: scale(0.94); }
@@ -276,19 +230,19 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
 }
 
 /* Bats: cross the moon now and then (long cycles with most of it spent off-screen). */
-.bat { left: -12cqw; width: 8cqw; height: 3.4cqw; animation: bat-cross 24s linear infinite; }
+.bat { left: -12cqw; width: 9cqw; animation: bat-cross 24s linear infinite; }
 .bat-1 { top: 15%; animation-delay: 3s; }
 .bat-2 { top: 24%; animation-duration: 31s; animation-delay: 12s; transform-origin: center; }
 .bat-3 { top: 10%; animation-duration: 38s; animation-delay: 22s; }
 @keyframes bat-cross { 0% { transform: translateX(0); } 38%, 100% { transform: translateX(135cqw); } }
-.bat-bob { position: absolute; inset: 0; animation: bat-bob 1.3s ease-in-out infinite; }
+.bat-bob { position: relative; animation: bat-bob 1.3s ease-in-out infinite; }
 @keyframes bat-bob { 50% { transform: translateY(-1.6cqw); } }
-.bat-wings {
-  position: absolute; inset: 0; background: #07060f;
-  clip-path: polygon(50% 25%, 56% 0, 60% 25%, 78% 10%, 100% 40%, 88% 38%, 80% 60%, 68% 40%, 58% 70%, 50% 100%, 42% 70%, 32% 40%, 20% 60%, 12% 38%, 0 40%, 22% 10%, 40% 25%, 44% 0);
-  animation: bat-flap 0.35s ease-in-out infinite;
-}
-@keyframes bat-flap { 50% { transform: scaleY(0.45); } }
+/* Flap: the two wing frames swap (same crop box, so they stay aligned). */
+.bat-bob img { width: 100%; }
+.bat-down { position: absolute; left: 0; top: 0; animation: bat-frame-down 0.5s steps(1) infinite; }
+.bat-up { animation: bat-frame-up 0.5s steps(1) infinite; }
+@keyframes bat-frame-up   { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes bat-frame-down { 0% { opacity: 0; } 50% { opacity: 1; } }
 
 /* Reduced motion: no drifting, flickering or flying. Fog and lantern light stay as still pictures. */
 .reduced-motion .fog, .reduced-motion .lantern-glow { animation: none; }
@@ -314,47 +268,51 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
 .closeup { display: none; background: #14123a; overflow: hidden; }
 .overlay[data-story="1"] #closeup-1 { display: block; }
 
-/* Placeholder statue art in CSS shapes (real close-up replaces it in the art-swap checkpoint). */
-.cu-sky { inset: 0; background: linear-gradient(#0d0b2b, #221f5c 60%, #3a2f73); }
+/* Close-up art. The statue box is placed in the stage; its children are positioned in % of the statue image. */
+.cu-backdrop { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 .cu-moon {
-  left: 50%; top: 11%; width: 34%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 40% 38%, #f4f1ff, #cfd3f0 60%, #aab0d8);
+  left: 50%; top: 11%; width: 34%; border-radius: 50%;
   box-shadow: 0 0 6cqw 2cqw rgba(201, 207, 232, 0.3);
   transition: box-shadow 0.6s, filter 0.6s;
 }
-.cu-ground { left: 0; right: 0; top: 82%; bottom: 0; background: linear-gradient(#1d1946, #0b0a1c); }
-.cu-statue { inset: 0; pointer-events: none; }
-.cu-statue > * { position: absolute; background: #7a7da3; }
-.cu-body { left: 20%; top: 44%; width: 60%; height: 42%; background: linear-gradient(90deg, #666a93, #8d90b3 45%, #666a93) !important;
-  clip-path: polygon(30% 0, 70% 0, 100% 22%, 100% 100%, 0 100%, 0 22%); }
-.cu-head { left: 36%; top: 30%; width: 28%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #a2a5c8, #7a7da3) !important; }
-.cu-arm { left: 66%; top: 42%; width: 6%; height: 12%; transform: rotate(-10deg); border-radius: 30%; }
-.cu-hand {
-  left: 66%; top: 33%; width: 10%; height: 9%; background: #9396b8 !important;
-  clip-path: polygon(0 45%, 0 15%, 18% 15%, 18% 0, 34% 0, 34% 12%, 50% 12%, 50% 0, 66% 0, 66% 12%, 82% 12%, 82% 22%, 100% 22%, 100% 60%, 80% 100%, 20% 100%);
-  transition: filter 0.6s;
-}
-.cu-eye { top: 37%; width: 4.5%; height: 1.3%; border-radius: 50%; background: #1c1a36 !important; transition: background 0.6s, box-shadow 0.6s; }
-.cu-eye-l { left: 42%; }
-.cu-eye-r { left: 53.5%; }
+.cu-art { left: -2%; width: 104%; bottom: 0; aspect-ratio: 732 / 716; }
+.cu-art > * { position: absolute; }
+.cu-art img { inset: 0; width: 100%; height: 100%; pointer-events: none;
+  /* the generated robe hem is ragged: fade it into the ground */
+  -webkit-mask-image: linear-gradient(#000 84%, transparent 99%); mask-image: linear-gradient(#000 84%, transparent 99%); }
+.cu-turned { opacity: 0; }
 
-/* Trigger targets sit over their art, >= 44x44 CSS px. */
+/* Glows are laid over the art at the eyes and the raised hand. */
+.cu-eyes { inset: 0; pointer-events: none; }
+.cu-eyes > * { position: absolute; }
+/* Eye positions are measured on the art (% of the statue image). The turned pose is foreshortened,
+   so each eye has its own turned position and width. */
+.cu-eye { height: 2.2%; border-radius: 50%; background: transparent; transition: background 0.6s, box-shadow 0.6s; }
+.cu-eye-l { left: 41.2%; top: 19.7%; width: 4.7%; }
+.cu-eye-r { left: 51.4%; top: 19.9%; width: 4.1%; }
+.cu-hand-glow {
+  left: 82%; top: 1%; width: 18%; height: 30%; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(255, 196, 100, 0.9), rgba(255, 170, 70, 0.35) 45%, transparent 70%);
+  mix-blend-mode: screen; opacity: 0; transition: opacity 0.6s;
+}
+
+/* Trigger targets sit over their art, >= 44x44 CSS px. Eyes and hand are in % of the statue image. */
 .target { background: transparent; border: 0; border-radius: 10px; cursor: pointer; min-width: 44px; min-height: 44px; }
 .target:focus-visible { outline: 3px solid var(--candle); outline-offset: 2px; }
 .debug .target { outline: 2px dashed #ff5ca8; }
-#t-eyes { left: 35%; top: 34.5%; width: 30%; height: 6.5%; }
-#t-hand { left: 65%; top: 31.5%; width: 14%; height: 12%; }
+#t-eyes { left: 37%; top: 14%; width: 26%; height: 14%; }
+#t-hand { left: 81%; top: 2%; width: 19%; height: 30%; }
 #t-moon { left: 48%; top: 9%; width: 38%; height: 19%; }
 
 /* Progress: each correct tap leaves a lasting glow and plays a one-shot pop. */
-.done-eyes .cu-eye { background: #d8f3ff !important; box-shadow: 0 0 2.5cqw 1cqw rgba(170, 225, 255, 0.9); }
-.done-hand .cu-hand { filter: drop-shadow(0 0 2cqw rgba(255, 196, 100, 0.95)) brightness(1.25); }
+.done-eyes .cu-eye { background: radial-gradient(circle, #f2fbff 0 25%, rgba(170, 225, 255, 0.85) 55%, transparent 75%); box-shadow: 0 0 1.6cqw 0.5cqw rgba(170, 225, 255, 0.85); }
+.done-hand .cu-hand-glow { opacity: 0.9; }
 .done-moon .cu-moon { box-shadow: 0 0 12cqw 5cqw rgba(220, 225, 255, 0.55); filter: brightness(1.12); }
 .pop-eyes .cu-eye { animation: pop-glow 0.9s ease-out; }
-.pop-hand .cu-hand { animation: pop-lift 0.9s ease-out; }
+.pop-hand .cu-hand-glow { animation: pop-flare 0.9s ease-out; }
 .pop-moon .cu-moon { animation: pop-swell 1.1s ease-out; }
-@keyframes pop-glow { 0% { box-shadow: 0 0 0 0 rgba(170, 225, 255, 0); } 40% { box-shadow: 0 0 5cqw 2.5cqw rgba(170, 225, 255, 1); } }
-@keyframes pop-lift { 40% { transform: translateY(-1.2cqw); } }
+@keyframes pop-glow { 0% { box-shadow: 0 0 0 0 rgba(170, 225, 255, 0); } 40% { box-shadow: 0 0 3.5cqw 1.5cqw rgba(170, 225, 255, 1); } }
+@keyframes pop-flare { 40% { opacity: 1; transform: scale(1.25); } }
 @keyframes pop-swell { 40% { transform: scale(1.06); } }
 .reduced-motion [class*="pop-"] * { animation: none; }   /* lasting glow stays; the one-shot motion goes */
 .reduced-motion [class*="pop-"] { animation: none; }
@@ -391,30 +349,26 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
   to   { filter: brightness(1.1);  box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); transform: scale(1); }
 }
 
-/* Head turns toward the castle (to the right in the close-up); the eyes travel a little further. */
-.seq-turn .cu-head { animation: seq-turn-head 2.6s ease-in-out forwards; }
-.seq-turn .cu-eye  { animation: seq-turn-eye 2.6s ease-in-out forwards; }
-@keyframes seq-turn-head { to { transform: translateX(2.2cqw) scaleX(0.92); } }
-@keyframes seq-turn-eye  { to { transform: translateX(4cqw) scaleX(0.85); } }
+/* Head turns toward the castle: cross-fade to the turned art while the eye glows travel with the gaze. */
+.seq-turn .cu-turned { animation: seq-turn-art 2.6s ease-in-out forwards; }
+.seq-turn .cu-eye-l  { animation: seq-turn-eye-l 2.6s ease-in-out forwards; }
+.seq-turn .cu-eye-r  { animation: seq-turn-eye-r 2.6s ease-in-out forwards; }
+@keyframes seq-turn-art  { to { opacity: 1; } }
+@keyframes seq-turn-eye-l { to { left: 47.4%; top: 14%;   width: 4.2%; } }
+@keyframes seq-turn-eye-r { to { left: 55.9%; top: 14.5%; width: 2.6%; } }
 
 /* Calm: eyes settle from bright to a faint glow, hand glow fades. */
-.seq-calm .cu-eye { background: #bfe6fa !important; box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
+.seq-calm .cu-eye { background: radial-gradient(circle, rgba(230, 246, 255, 0.9) 0 20%, rgba(170, 225, 255, 0.5) 50%, transparent 72%); box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
+.seq-calm .cu-hand-glow { opacity: 0; }
 
 /* Persistent completed look in the close-up. */
-.is-complete .cu-head { transform: translateX(2.2cqw) scaleX(0.92); }
-.is-complete .cu-eye  { transform: translateX(4cqw) scaleX(0.85); background: #bfe6fa !important; box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
+.is-complete .cu-turned { opacity: 1; }
+.is-complete .cu-eye-l { left: 47.4%; top: 14%;   width: 4.2%; }
+.is-complete .cu-eye-r { left: 55.9%; top: 14.5%; width: 2.6%; }
+.is-complete .cu-eye  { background: radial-gradient(circle, rgba(230, 246, 255, 0.9) 0 20%, rgba(170, 225, 255, 0.5) 50%, transparent 72%); box-shadow: 0 0 1.2cqw 0.4cqw rgba(170, 225, 255, 0.55); }
 .is-complete .cu-moon { filter: brightness(1.1); box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); }
 
-/* Persistent completed look in the main scene: statue head turned toward the castle, eyes faintly lit. */
-.statue-eye {
-  top: 8%; width: 1cqw; height: 0.7cqw; border-radius: 50%;
-  background: #d8f3ff; box-shadow: 0 0 1.4cqw 0.5cqw rgba(170, 225, 255, 0.7);
-  opacity: 0;
-}
-.statue-eye-l { left: 38%; }
-.statue-eye-r { left: 52%; }
-.story1-done .statue-eye { opacity: 0.85; transform: translateX(1.2cqw); }
-.story1-done .statue-head { transform: translateX(1.2cqw) scaleX(0.92); }
+/* Persistent completed look in the main scene: the turned statue art (see .statue-turned above). */
 
 /* Reset button (overlay, left of Play/Pause), shown only when the open story is complete. */
 .pill-btn {
@@ -441,6 +395,8 @@ html:not(.started) .layer-fx *, html:not(.started) .glow-l, html:not(.started) .
    instead of animating (no scaling, sliding or pulsing). */
 .reduced-motion .seq-moon .cu-moon  { animation: none; filter: brightness(1.45); box-shadow: 0 0 18cqw 8cqw rgba(235, 238, 255, 0.7); }
 .reduced-motion .seq-calm .cu-moon  { animation: none; filter: brightness(1.1);  box-shadow: 0 0 10cqw 4cqw rgba(220, 225, 255, 0.45); }
-.reduced-motion .seq-turn .cu-head  { animation: none; transform: translateX(2.2cqw) scaleX(0.92); }
-.reduced-motion .seq-turn .cu-eye   { animation: none; transform: translateX(4cqw) scaleX(0.85); }
+.reduced-motion .seq-turn .cu-turned { animation: none; opacity: 1; }
+.reduced-motion .seq-turn .cu-eye { animation: none; }
+.reduced-motion .seq-turn .cu-eye-l { left: 47.4%; top: 14%;   width: 4.2%; }
+.reduced-motion .seq-turn .cu-eye-r { left: 55.9%; top: 14.5%; width: 2.6%; }
 .reduced-motion .hint-line:not(:empty) { animation: none; }

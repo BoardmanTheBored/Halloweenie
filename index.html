@@ -10,37 +10,24 @@
   <!-- Fixed-aspect stage; all children are positioned in % / cqw of the stage so it scales as one unit. -->
   <main id="stage" aria-label="Haunted castle scene">
 
-    <!-- 1. Background art (placeholder CSS shapes until Gemini layers exist) -->
-    <div class="layer layer-sky"><div class="moon"></div></div>
-    <div class="layer layer-castle">
-      <div class="castle-keep"></div>
-      <div class="castle-tower castle-tower-l"></div>
-      <div class="castle-tower castle-tower-r"></div>
-      <div class="castle-tower castle-tower-c"></div>
-      <div class="castle-window"></div>
-    </div>
+    <!-- 1. Scene art (Gemini images; originals in reference/art, processed by tools/make_assets.py) -->
+    <div class="layer layer-sky"><img class="sky-img" src="assets/sky.webp" alt="" draggable="false"><img class="moon" src="assets/moon.webp" alt="" draggable="false"></div>
+    <div class="layer layer-castle"><img class="castle-img" src="assets/castle.webp" alt="" draggable="false"></div>
     <!-- Fog: between the castle and the terrain, so it veils the castle base only -->
     <div class="layer layer-fx" id="fx-fog" aria-hidden="true">
       <div class="fog fog-a"></div>
       <div class="fog fog-b"></div>
     </div>
-    <div class="layer layer-terrain">
-      <div class="cliff"></div>
-      <div class="ground"></div>
-    </div>
+    <div class="layer layer-terrain"><img class="terrain-img" src="assets/terrain.webp" alt="" draggable="false"></div>
     <div class="layer layer-mid">
-      <div class="gatehouse">
-        <div class="gh-tower gh-tower-l"></div>
-        <div class="gh-tower gh-tower-r"></div>
-        <div class="gh-wall"></div>
-        <div class="gh-arch"></div>
-      </div>
-      <div class="lantern lantern-l"></div>
-      <div class="lantern lantern-r"></div>
-      <div class="fountain"><div class="fountain-basin"></div><div class="fountain-spout"></div></div>
-      <div class="statue"><div class="statue-head"></div><div class="statue-body"></div><div class="statue-hand"></div><div class="statue-eye statue-eye-l"></div><div class="statue-eye statue-eye-r"></div></div>
+      <img class="gatehouse" src="assets/gatehouse.webp" alt="" draggable="false">
+      <img class="lantern lantern-l" src="assets/lantern-lit.webp" alt="" draggable="false">
+      <img class="lantern lantern-r" src="assets/lantern-lit.webp" alt="" draggable="false">
+      <div class="fountain"><img src="assets/fountain.webp" alt="" draggable="false"></div>
+      <!-- Statue: front pose, and the turned pose shown once story 1 is complete (html.story1-done) -->
+      <div class="statue"><img class="statue-front" src="assets/statue.webp" alt="" draggable="false"><img class="statue-turned" src="assets/statue-turned.webp" alt="" draggable="false"></div>
     </div>
-    <div class="layer layer-fore"><div class="fore-left"></div><div class="fore-right"></div></div>
+    <div class="layer layer-fore"><img class="fore-left" src="assets/fg-left.webp" alt="" draggable="false"><img class="fore-right" src="assets/fg-right.webp" alt="" draggable="false"></div>
 
     <!-- 2. Remaining ambient effect layers (fog sits lower in the stack, above) -->
     <div class="layer layer-fx" id="fx-light" aria-hidden="true">
@@ -48,9 +35,9 @@
       <div class="lantern-glow glow-r"></div>
     </div>
     <div class="layer layer-fx" id="fx-bats" aria-hidden="true">
-      <div class="bat bat-1"><div class="bat-bob"><div class="bat-wings"></div></div></div>
-      <div class="bat bat-2"><div class="bat-bob"><div class="bat-wings"></div></div></div>
-      <div class="bat bat-3"><div class="bat-bob"><div class="bat-wings"></div></div></div>
+      <div class="bat bat-1"><div class="bat-bob"><img class="bat-up" src="assets/bat-up.webp" alt="" draggable="false"><img class="bat-down" src="assets/bat-down.webp" alt="" draggable="false"></div></div>
+      <div class="bat bat-2"><div class="bat-bob"><img class="bat-up" src="assets/bat-up.webp" alt="" draggable="false"><img class="bat-down" src="assets/bat-down.webp" alt="" draggable="false"></div></div>
+      <div class="bat bat-3"><div class="bat-bob"><img class="bat-up" src="assets/bat-up.webp" alt="" draggable="false"><img class="bat-down" src="assets/bat-down.webp" alt="" draggable="false"></div></div>
     </div>
 
     <!-- 3. Interactive hotspots (inert until checkpoint 4) -->
@@ -81,20 +68,18 @@
        Below the UI layer so Play/Pause stays reachable. Only story 1 (statue) exists so far. -->
   <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Statue close-up" inert>
     <div class="closeup" id="closeup-1">
-      <div class="cu-sky"></div>
-      <div class="cu-moon"></div>
-      <div class="cu-ground"></div>
-      <div class="cu-statue">
-        <div class="cu-body"></div>
-        <div class="cu-arm"></div>
-        <div class="cu-hand"></div>
-        <div class="cu-head"></div>
-        <div class="cu-eye cu-eye-l"></div>
-        <div class="cu-eye cu-eye-r"></div>
+      <img class="cu-backdrop" src="assets/statue-backdrop.webp" alt="" draggable="false">
+      <img class="cu-moon" src="assets/moon.webp" alt="" draggable="false">
+      <!-- Statue art box: everything inside is positioned in % of the statue image, so glows and targets stay on the art -->
+      <div class="cu-art">
+        <img class="cu-front" src="assets/statue-close.webp" alt="" draggable="false">
+        <img class="cu-turned" src="assets/statue-close-turned.webp" alt="" draggable="false">
+        <div class="cu-hand-glow"></div>
+        <div class="cu-eyes"><div class="cu-eye cu-eye-l"></div><div class="cu-eye cu-eye-r"></div></div>
+        <!-- Trigger targets, in story order: eyes, hand, moon (moon target sits outside this box) -->
+        <button class="target" id="t-eyes" type="button" aria-label="The statue's eyes"></button>
+        <button class="target" id="t-hand" type="button" aria-label="The statue's raised hand"></button>
       </div>
-      <!-- Trigger targets, in story order: eyes, hand, moon -->
-      <button class="target" id="t-eyes" type="button" aria-label="The statue's eyes"></button>
-      <button class="target" id="t-hand" type="button" aria-label="The statue's raised hand"></button>
       <button class="target" id="t-moon" type="button" aria-label="The moon"></button>
     </div>
     <button class="icon-btn back-btn" id="overlay-back" type="button" aria-label="Back to the castle">
