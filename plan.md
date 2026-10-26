@@ -27,8 +27,8 @@ Main risk: the art pipeline (Gemini output split into transparent layers, fit to
 - [ ] 3. Ambience: fog, gate-lantern flicker, bats, synthesized wind loop. Verify: checks 4, 5 (pause stops everything).
 - [ ] 4. Overlay shell and statue interaction: fade overlay, back arrow, Escape, ordered taps, progress, soft wrong-tap feedback, keyboard. Verify: checks 6, 7, 11, plus Pause mid-story.
 - [ ] 5. Statue story sequence: 5-10 s timeline, synthesized sounds, persistent change, Reset, hint ladder. Verify: checks 8-10, 12; replay without reload; audio blocked still works.
-- [ ] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8.
-- [ ] 7. Deploy to GitHub Pages and test on a physical phone (iOS silent switch, audio loop). Unlocks Playtest 1.
+- [x] 6. Real art swap: Gemini layers and close-up replace placeholders; second-pass timing/tone tuning. Verify: re-run checks 3-5 and 8. *(Art swapped and committed `4f7492c`; browser story run clean at 390x844 and 360x640. Second-pass timing/tone tuning and a full re-run of checks 3-5 not done yet.)*
+- [x] 7. Deploy to GitHub Pages and test on a physical phone (iOS silent switch, audio loop). Unlocks Playtest 1. *(Live at https://boardmanthebored.github.io/Halloweenie/; see Evidence below. iOS not yet tested.)*
 
 Each checkpoint ends with a git commit after the Developer has tested it.
 
@@ -39,6 +39,13 @@ Test each result before continuing, including related behavior that already work
 Record non-identifying playtest observations, separating what Users did or said from your interpretation. Use the findings to choose revision priorities and record what changed and how you verified the improvement.
 
 Keep implementation progress and verification here. Update `research.md` when evidence changes a decision and `spec.md` when intended behavior changes; link to those updates rather than duplicating them. Record consequential changes, not every small adjustment.
+
+### Checkpoint 7: deployment and first phone test (2026-10-26)
+
+- Deployed from `main` (root) to GitHub Pages; the Developer enabled Pages in repo Settings. The deployed page returned 200 and an automated Edge run at 390x844 completed the whole statue story (taps, finale, persistent change, overlay closed). Only console errors: two 404s for `favicon.ico` (no icon file; harmless).
+- Developer on a Samsung Galaxy S25 (Android): the game ran without errors or bugs, and the audio loop played fine.
+- Not covered: iOS Safari (silent-switch muting, gapless looping, audio unlock), which `research.md` Technical notes flag as unverified. Test on an iPhone before treating the audio behavior as confirmed across phones.
+- Known and accepted by the Developer: at 360x640 the stage crops top and bottom, so the moon's top edge is cut and Pause overlaps it.
 
 ## Saving transcripts
 
