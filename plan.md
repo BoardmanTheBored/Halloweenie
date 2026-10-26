@@ -47,6 +47,12 @@ Record non-identifying playtest observations, separating what Users did or said 
 
 Keep implementation progress and verification here. Update `research.md` when evidence changes a decision and `spec.md` when intended behavior changes; link to those updates rather than duplicating them. Record consequential changes, not every small adjustment.
 
+### Full-game test on the deployed site (2026-10-26)
+
+- Developer observation: the deployed site (build of commit `fab79bd`, all three stories and the credits screen) works well when tested on Android.
+- Developer observation of a playtester: they completed the game with no guidance and no confusion, finding the triggers intuitively and finishing satisfactorily. The device used by the playtester was not recorded. This is one tester, so it is encouraging but thin evidence for the hint ladders and trigger discoverability; the hint ladders themselves were not reported as needed.
+- iOS: no iOS tester is available any more. iOS is verified only for the statue story (see "Checkpoint 7" above, iOS 27.0.1); stories 2-3 and the credits screen are untested on iOS.
+
 ### Checkpoint 6 second pass: timing and tone (2026-10-26)
 
 - Agent re-ran acceptance checks 3, 4, 5, 8 and 9 in Edge at 390x844 and 360x640 on the real art: all pass, no page errors. Pause froze the clock, fog and the mid-finale animation, and resume continued. Check 3 note: at 360x640 the page cannot scroll; the stage is taller than the viewport and cropped by design.
